@@ -1,0 +1,15 @@
+/*
+ * Lo-fi+ theme: the lo-fi grayscale values plus ONE accent color for primary actions, focus, and selected states
+ * (guidelines/02-lofi-prototype-rules.md). The default accent is violet. To use the brief's accent color instead,
+ * change the five accent lines below to the same shades of that Tailwind palette (for example --color-blue-600).
+ */
+
+@import './lofi.css';
+
+:root {
+  --primary: var(--color-violet-600);
+  --primary-hover: var(--color-violet-700);
+  --ring: var(--color-violet-500);
+  --accent: var(--color-violet-50);
+  --accent-foreground: var(--color-violet-700);
+}

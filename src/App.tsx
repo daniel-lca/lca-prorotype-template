@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Link, Navigate, Route, Routes, useParams } from 'react-router-dom';
+import { Toaster } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { flowById, flowStartHref, screenLabel } from './prototype/derive';
 import { FlowBar } from './prototype/FlowBar';
 import { CurrentScreenProvider } from './prototype/navigation';
@@ -57,17 +59,21 @@ function HomeRoute() {
   return <PrototypeHome />;
 }
 
+// TooltipProvider and Toaster (toast() from 'sonner') are mounted once here for every screen.
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomeRoute />} />
-        <Route path="/flow/:flowId" element={<FlowEntry />} />
-        {registry.screens.map((screen) => (
-          <Route key={screen.id} path={screen.route} element={<ScreenRoute screen={screen} />} />
-        ))}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <TooltipProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomeRoute />} />
+          <Route path="/flow/:flowId" element={<FlowEntry />} />
+          {registry.screens.map((screen) => (
+            <Route key={screen.id} path={screen.route} element={<ScreenRoute screen={screen} />} />
+          ))}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+      <Toaster />
+    </TooltipProvider>
   );
 }

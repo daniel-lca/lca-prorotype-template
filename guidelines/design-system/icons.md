@@ -245,17 +245,14 @@ Provide an accessible label.
 
 ```tsx
 import { X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-<button
-  type="button"
-  aria-label="Close"
-  className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
->
-  <X className="size-4" aria-hidden />
-</button>
+<Button size="icon" variant="ghost" aria-label="Close">
+  <X />
+</Button>
 ```
 
-This template has no `Button` component library; use a native `<button>` (see [README.md](README.md) "Stack translations").
+`Button` comes from `src/components/ui` (shadcn/ui); it sizes the icon and adds the focus ring.
 
 If an action may be ambiguous, use an icon with a text label instead.
 

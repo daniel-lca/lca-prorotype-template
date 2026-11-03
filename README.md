@@ -41,16 +41,19 @@ screen from that registry, grouped by user type. If the registry is out of sync,
 | `guidelines/design-system/` | Memorisely design rules (accessibility, interactions, status, spacing, text, color, radius…) and when each applies |
 | `project/BRIEF.md` | The brief, filled in during intake |
 | `src/prototype/` | Registry, validation, design check, Prototype Home (LOW / CODE branded, with the visual screen gallery), flow bar, `ScreenLink` |
-| `src/styles/` | Mid-fi Memorisely tokens (`memorisely.css`) and dark-mode helper (`theme.ts`) |
+| `src/components/ui/` | shadcn/ui components on Radix (button, dialog, select, tabs, table…), themed by the active fidelity |
+| `src/styles/` | One theme file per fidelity (`lofi.css`, `lofi-plus.css`, `memorisely.css`), shared `base.css`, dark-mode helper (`theme.ts`) |
 | `src/components/` | `Placeholder`, `Note`, `PhoneFrame` building blocks |
 
 ## Fidelity levels
 
-| Level | Look |
-|---|---|
-| Lo-fi (default) | Grayscale wireframe, placeholder boxes |
-| Lo-fi+ | Grayscale plus one accent color, real-looking copy |
-| Mid-fi (Memorisely) | Team design system: Slate + Violet tokens, Inter type, Lucide icons, optional dark mode |
+Every fidelity uses the same shadcn/ui components; `src/index.css` imports the theme file that sets their look.
+
+| Level | Theme file | Look |
+|---|---|---|
+| Lo-fi (default) | `lofi.css` | Grayscale wireframe, placeholder boxes, system font, no icons in screens |
+| Lo-fi+ | `lofi-plus.css` | Grayscale plus one accent color, real-looking copy |
+| Mid-fi (Memorisely) | `memorisely.css` | Team design system: Slate + Violet tokens, Inter type, Lucide icons, optional dark mode |
 
 Behavior rules (accessibility, interaction states, system status, progressive disclosure, responsive, spacing,
 type weights and casing) apply at every level. In development, Prototype Home runs a **design check** that lists

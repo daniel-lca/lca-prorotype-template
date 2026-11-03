@@ -63,10 +63,15 @@ const TOKEN_RULES: TokenRule[] = [
   },
 ];
 
-const LINE_RULES: { test: RegExp; fix: string }[] = [
-  { test: /\bfixed\b[^"'`]*\binset-0\b|\binset-0\b[^"'`]*\bfixed\b/, fix: '<dialog className="m-auto …"> opened with showModal() (design-system README, Shared conventions)' },
+const LINE_RULES: { test: RegExp; fix: string; only?: Fidelity[] }[] = [
+  { test: /\bfixed\b[^"'`]*\binset-0\b|\binset-0\b[^"'`]*\bfixed\b/, fix: 'Dialog, AlertDialog, or Sheet from @/components/ui (they handle the overlay, focus, and Escape)' },
+  { test: /<dialog\b/, fix: 'Dialog or AlertDialog from @/components/ui' },
   { test: /\bto=\{?["'`]\/|navigate\(\s*["'`]\/|href=["']\/(?!\/)/, fix: 'ScreenLink / useGoToScreen with a screen ID (02, Behavior)' },
   { test: /from ['"]react-router-dom['"]/, fix: 'ScreenLink / useGoToScreen from src/prototype/navigation.tsx (02, Behavior)' },
+  { test: /from ['"](radix-ui|@radix-ui\/[^'"]+)['"]/, fix: 'the styled components in @/components/ui instead of raw Radix primitives' },
+  { test: /from ['"]@base-ui[^'"]*['"]/, fix: 'the Radix-based components in @/components/ui; this template uses Radix (asChild), not Base UI' },
+  { test: /from ['"]next-themes['"]/, fix: 'useTheme from src/styles/theme.ts' },
+  { test: /from ['"]lucide-react['"]/, fix: 'text labels; lo-fi screens use no icons (02, Visual)', only: ['lo-fi', 'lo-fi-plus'] },
 ];
 
 /** The class token without variant prefixes: "md:hover:bg-white" -> "bg-white". Keeps "!" and opacity out. */
@@ -81,6 +86,7 @@ export function checkSource(file: string, source: string, fidelity: Fidelity): D
     const line = index + 1;
     const seen = new Set<string>();
     for (const rule of LINE_RULES) {
+      if (rule.only && !rule.only.includes(fidelity)) continue;
       const match = text.match(rule.test);
       if (match) issues.push({ file, line, found: match[0].trim(), fix: rule.fix });
     }

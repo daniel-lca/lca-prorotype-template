@@ -6,10 +6,11 @@
 > Stack translations (shadcn/ui, Radix, Lucide, Sonner) and precedence rules: see [README.md](README.md).
 
 > **In this template:** every token below is already implemented in `src/styles/memorisely.css` (light and dark
-> values, written as Tailwind palette variables). Turn it on with the "Mid-fi setup" steps in [README.md](README.md),
-> then use the semantic utilities (`bg-background`, `text-foreground`, `bg-primary`, `border-border`…). Do not copy
-> the CSS blocks in this file into the project, and do not create other color variables. Use palette utilities
-> (`bg-slate-100`, `text-violet-700`) only where no semantic role fits.
+> values, written as Tailwind palette variables). Turn it on with the "Fidelity setup" steps in [README.md](README.md),
+> then use the semantic utilities (`bg-background`, `text-foreground`, `bg-primary`, `border-border`…). The
+> components in `src/components/ui` already use them. Do not copy the CSS blocks in this file into the project, and
+> do not create other color variables. Use palette utilities (`bg-slate-100`, `text-violet-700`) only where no
+> semantic role fits.
 
 ## Purpose
 

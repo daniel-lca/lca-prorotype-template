@@ -75,6 +75,12 @@ the registry. See `guidelines/04-prototype-system.md` section 2B and the visual 
 **Screens link to other screens by screen ID**, with `ScreenLink` or `useGoToScreen` from
 `src/prototype/navigation.tsx`. Never write a route string inside a screen.
 
+**Build screens from the components in `src/components/ui`**: shadcn/ui on Radix (`Button`, `Input`, `Select`,
+`Card`, `Dialog`, `AlertDialog`, `Sheet`, `DropdownMenu`, `Tabs`, `Table`, `Badge`, `Empty`, `toast()`…). They already
+follow the design rules at every fidelity; the active theme file in `src/index.css` sets their colors. Compose with
+`asChild` (`<Button asChild><ScreenLink to="…">…</ScreenLink></Button>`). Never hand-build a modal, sheet, or menu.
+See `guidelines/design-system/README.md`, "Components".
+
 **The design check enforces the design rules.** In development, Prototype Home lists every class in
 `src/screens/` and `src/components/` that breaks the rules for `registry.fidelity`, with the class to use instead,
 and the flow bar shows a "design issues" badge. Fix every design issue in the screens you build. Do not edit
@@ -100,7 +106,7 @@ Never:
 
 1. Identify the user type and the existing flow it belongs to.
 2. Inspect adjacent screens in that flow and confirm the screen does not already exist.
-3. Create the screen in `src/screens/`, reusing the flow's shell and components. Link to other screens with `ScreenLink` / `useGoToScreen`.
+3. Create the screen in `src/screens/`, reusing the flow's shell, `src/components/ui`, and your shared components. Link to other screens with `ScreenLink` / `useGoToScreen`.
 4. Register it in `registry.ts` with a stable ID and route, and insert its ID in the correct position of the flow's `screenIds`.
 5. Run the integrity checklist in `guidelines/08-ai-workflow.md`.
 

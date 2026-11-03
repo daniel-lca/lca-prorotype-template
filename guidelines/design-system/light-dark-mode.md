@@ -8,19 +8,19 @@
 > **In this template:**
 > - The light and dark values below are already implemented in `src/styles/memorisely.css`. Do not copy them.
 >   Two dark values differ on purpose: primary and destructive use the 600 shade, so white labels pass WCAG AA.
-> - Dark mode is class-based. Put the `dark` class on the **product shell**, not on `<html>`, so Prototype Home and
->   the flow bar stay light. Every semantic utility inside the shell switches automatically; use `dark:` only for
->   exceptions.
-> - Use `useTheme()` from `src/styles/theme.ts`. It stores Light / Dark / System in localStorage
->   (`prototype-theme`) and reads it before the first render, so there is no flash:
+> - Dark mode is class-based (`dark` class). Call `useProductTheme()` from `src/styles/theme.ts` once in the
+>   **product shell**. While the shell is mounted it puts `dark` on `<body>`, so the screen and everything the
+>   components render in a portal (dialogs, sheets, menus, popovers, toasts) switch together. Prototype Home and the
+>   flow bar keep their own colors. Every semantic utility switches automatically; use `dark:` only for exceptions.
 >
 >   ```tsx
->   const { themeClass, choice, setChoice } = useTheme();
->   <div className={`${themeClass} min-h-[calc(100dvh-var(--prototype-bar-height,0px))] bg-background text-foreground`}>
+>   useProductTheme();
+>   <div className="min-h-[calc(100dvh-var(--prototype-bar-height,0px))] bg-background text-foreground">
 >   ```
 >
->   Put the Light / Dark / System switcher where the brief says (usually settings or the account menu), and call
->   `setChoice('light' | 'dark' | 'system')`.
+> - The choice (Light / Dark / System) is stored in localStorage (`prototype-theme`) and read before the first
+>   render, so there is no flash. Put the switcher where the brief says (usually settings or the account menu): it
+>   calls `setChoice('light' | 'dark' | 'system')` from `useTheme()`.
 
 ## Purpose
 

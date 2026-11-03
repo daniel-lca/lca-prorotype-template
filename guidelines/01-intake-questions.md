@@ -106,8 +106,8 @@ The template files describe the template, not the product. The project repositor
 4. In `index.html`, set `<title>` to "<Product name> prototype", and set `<html lang>` to the UI language code
    (for example `en` or `es`).
 5. In `package.json`, set `name` to the product name in kebab-case, for example `acme-booking-prototype`.
-6. If the brief Fidelity is Mid-fi (Memorisely), run "Mid-fi setup" in `guidelines/design-system/README.md`
-   (uncomment the `memorisely.css` import and add `lucide-react`).
+6. Run "Fidelity setup" in `guidelines/design-system/README.md`: keep exactly one theme import active in
+   `src/index.css` (`lofi.css`, `lofi-plus.css`, or `memorisely.css`) to match the brief Fidelity.
 7. If the prototype is mobile-only, set `previewViewport: { width: 390, height: 844 }` in the registry. If only
    some screens are phone-sized, set `previewViewport` on those screens instead.
 8. Tell the user in one line that setup is done, then start the first flow.

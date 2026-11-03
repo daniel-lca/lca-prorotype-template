@@ -1,0 +1,40 @@
+/*
+ * Lo-fi theme: grayscale wireframe values for the semantic tokens (guidelines/02-lofi-prototype-rules.md).
+ * Neutral palette only. Feedback colors (destructive, success, warning, info) are grays too: in lo-fi, states are
+ * shown with text, labels, and weight, never with color.
+ * The system font stack stays (no custom font). Change values here, never per component.
+ */
+
+:root {
+  --radius: 0.375rem;
+
+  --background: var(--color-white);
+  --foreground: var(--color-neutral-900);
+  --card: var(--color-white);
+  --card-foreground: var(--color-neutral-900);
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-neutral-900);
+  --primary: var(--color-neutral-900);
+  --primary-hover: var(--color-neutral-700);
+  --primary-foreground: var(--color-white);
+  --secondary: var(--color-neutral-100);
+  --secondary-foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-100);
+  --muted-foreground: var(--color-neutral-600);
+  --accent: var(--color-neutral-100);
+  --accent-foreground: var(--color-neutral-900);
+  --border: var(--color-neutral-200);
+  --input: var(--color-neutral-300);
+  --ring: var(--color-neutral-500);
+  --destructive: var(--color-neutral-900);
+  --destructive-foreground: var(--color-white);
+  --success: var(--color-neutral-700);
+  --success-subtle: var(--color-neutral-100);
+  --success-subtle-foreground: var(--color-neutral-800);
+  --warning: var(--color-neutral-700);
+  --warning-subtle: var(--color-neutral-100);
+  --warning-subtle-foreground: var(--color-neutral-800);
+  --info: var(--color-neutral-700);
+  --info-subtle: var(--color-neutral-100);
+  --info-subtle-foreground: var(--color-neutral-800);
+}

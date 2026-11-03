@@ -244,14 +244,9 @@ Do not use dramatic spring entrances.
 
 The dialog should feel immediate because it interrupts the current task.
 
-**In this template** (native `<dialog>` with `showModal()`), animate the entrance only:
-
-```tsx
-<dialog className="m-auto rounded-xl opacity-100 transition-[opacity,scale] transition-discrete duration-200 ease-standard
-  starting:scale-[0.98] starting:opacity-0 backdrop:bg-black/40 motion-reduce:transition-none">
-```
-
-Closing is instant. Do not build exit animations with timers.
+**In this template**, use `Dialog`, `AlertDialog`, or `Sheet` from `@/components/ui`. Their enter and exit animations
+(fade and a small zoom or slide) are built in. Do not add your own animation to them, and do not build exit
+animations with timers.
 
 ---
 
@@ -339,8 +334,8 @@ Chevron rotation can accompany the expansion:
 
 Keep it synchronized with the content transition.
 
-**In this template** (native `<details>` / `<summary>`): do not animate the content height. Rotate the chevron only:
-`<details className="group">` … `<ChevronDown className="transition-transform duration-200 ease-standard group-open:rotate-180" />`.
+**In this template**, use `Accordion` from `@/components/ui/accordion`. Its height animation and chevron rotation are
+built in.
 
 ---
 
