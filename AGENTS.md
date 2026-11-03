@@ -31,9 +31,12 @@ does not exist before checking.
 2. Run the intake as a conversation, **one phase at a time**. Wait for answers before moving on.
 3. When intake is done, write the answers into `project/BRIEF.md` (replace the placeholders),
    show the user a short summary, and ask for a "go" before building.
-4. After the brief is confirmed, build flow by flow, following the guidelines. After each batch of screens,
+4. After the user says "go", run **project setup** once, before you build any screen. Follow
+   "After the go: project setup" in `guidelines/01-intake-questions.md`. It replaces this template's
+   `README.md` with a README for the product, and renames the app, page title, and registry.
+5. Then build flow by flow, following the guidelines. After each batch of screens,
    tell the user what you built and what is next.
-5. If a request conflicts with the guidelines, point out the conflict and ask which one wins.
+6. If a request conflicts with the guidelines, point out the conflict and ask which one wins.
    The user's explicit answer overrides the guidelines. Record the exception in `project/BRIEF.md`
    under "Decisions & exceptions".
 
@@ -43,10 +46,9 @@ does not exist before checking.
 screen order, routes, start screens, status, and developer shortcuts. Prototype Home, All Prototype Screens,
 routing, flow navigation, and counts are all derived from it.
 
-Never:
-
-
 **All Prototype Screens is a visual gallery:** show the actual registered screen components side by side, grouped by user type and flow, including rendered variants. Names, descriptions, and route links alone are insufficient. The starter `ScreenRow` text list must be replaced when building product screens. Follow `guidelines/04-prototype-system.md` section 2B and the visual checks in `guidelines/08-ai-workflow.md`.
+
+Never:
 
 - create a screen without registering it (every file in `src/screens/` must be in the registry)
 - maintain Prototype Flows and All Prototype Screens as separate lists, or hardcode flows/screens in any view

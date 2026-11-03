@@ -92,7 +92,7 @@ An error should not be communicated only with a red border. Include a clear erro
 
 ## 7. Text
 
-Use the Tailwind default type scale with a small, consistent set of sizes and weights.
+Follow [text.md](text.md).
 
 Avoid tiny important text, thin weights, excessive line lengths and ALL CAPS interface labels.
 

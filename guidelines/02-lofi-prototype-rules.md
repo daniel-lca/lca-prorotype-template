@@ -4,9 +4,10 @@ The prototype exists to validate **structure and flow**. Visual polish is out of
 
 These rules cover the **Lo-fi** and **Lo-fi+** fidelity levels. If the brief says **Mid-fi (Memorisely)**, the
 "Visual" section below is replaced by the visual files in `guidelines/design-system/` (color, radius, icons,
-motion, light/dark). Content, Behavior, Breakpoints, and Wireframe notes still apply at every fidelity, and so do
-the behavior files in `guidelines/design-system/` (accessibility, interactions, system status, progressive
-disclosure, responsive).
+motion, light/dark, and the Inter typeface and type tokens in text). Content, Behavior, Breakpoints, and Wireframe
+notes still apply at every fidelity, and so do the behavior files in `guidelines/design-system/` (accessibility,
+interactions, system status, progressive disclosure, responsive, spacing, and the weight, casing and hierarchy
+rules in text).
 
 ## Visual
 
@@ -16,7 +17,10 @@ disclosure, responsive).
 - **Images = placeholder boxes**: a gray box with a diagonal cross or a label like `[Hero image]`.
   Use the `Placeholder` component in `src/components/Placeholder.tsx`. No stock photos, no generated images.
 - **Icons**: simple gray circles/squares or text labels. Only add an icon library if the user asks.
-- Borders, spacing, and hierarchy do the work: 1px `neutral-300` borders, clear headings, generous whitespace.
+- Borders, spacing, and hierarchy do the work: 1px `neutral-300` borders, clear headings, and whitespace that
+  follows `design-system/spacing.md` (density matches the category; not every screen is spacious).
+- Type follows `design-system/text.md`: Regular and Medium do most of the work, Semibold only on buttons, no Bold,
+  sentence case everywhere.
 - No gradients, shadows beyond `shadow-sm`, animations, or illustrations.
 
 ## Content

@@ -274,7 +274,7 @@ Not:
 
 Use sentence case.
 
-Use semibold for button labels.
+Use Semibold for button labels as defined in [text.md](text.md).
 
 ---
 

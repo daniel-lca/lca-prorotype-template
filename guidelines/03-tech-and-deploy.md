@@ -9,8 +9,9 @@ The repo must keep building with `npm run build` and deploy to **Vercel** with z
 - **Routing**: `react-router-dom` (`BrowserRouter`), already set up. Routes are generated in `src/App.tsx` from
   `src/prototype/registry.ts`; register a screen there instead of adding a `<Route>` by hand.
   `vercel.json` already rewrites all paths to `index.html`, so deep links work.
-- No other dependencies without a reason written in `project/BRIEF.md`. The one pre-approved exception:
-  `lucide-react` when the brief Fidelity is Mid-fi (Memorisely).
+- No other dependencies without a reason written in `project/BRIEF.md`. Pre-approved exceptions when the brief
+  Fidelity is Mid-fi (Memorisely): `lucide-react`, and the Inter font loaded from Google Fonts in `index.html`
+  (see `guidelines/design-system/text.md`).
 - No shadcn/ui, Radix, or animation libraries. `guidelines/design-system/README.md` maps them to native HTML.
 
 ## Folder structure
