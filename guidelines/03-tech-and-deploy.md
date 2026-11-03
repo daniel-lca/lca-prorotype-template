@@ -9,10 +9,15 @@ The repo must keep building with `npm run build` and deploy to **Vercel** with z
 - **Routing**: `react-router-dom` (`BrowserRouter`), already set up. Routes are generated in `src/App.tsx` from
   `src/prototype/registry.ts`; register a screen there instead of adding a `<Route>` by hand.
   `vercel.json` already rewrites all paths to `index.html`, so deep links work.
-- No other dependencies without a reason written in `project/BRIEF.md`. The pre-approved exception when the brief
-  Fidelity is Mid-fi (Memorisely): `lucide-react`. Inter is already loaded from Google Fonts in `index.html`
-  (the tooling uses it; Mid-fi screens use it through `memorisely.css`).
-- No shadcn/ui, Radix, or animation libraries. `guidelines/design-system/README.md` maps them to native HTML.
+- **UI components**: shadcn/ui on **Radix**, already in `src/components/ui` (see `guidelines/design-system/README.md`,
+  "Components"). Use Radix patterns (`asChild`). Do not switch to Base UI or another component library.
+  Add a missing shadcn/ui component with `npx shadcn@latest add <name>`.
+- Installed for you: `radix-ui`, `class-variance-authority`, `cn`, `lucide-react`, `sonner`, `tw-animate-css`.
+  Inter is loaded from Google Fonts in `index.html` (the tooling uses it; Mid-fi screens use it through
+  `memorisely.css`).
+- No other dependencies without a reason written in `project/BRIEF.md`. No animation libraries (Framer Motion…),
+  no `next-themes` (use `src/styles/theme.ts`).
+- Import with the `@/` alias for `src/` (for example `@/components/ui/button`); relative imports also work.
 
 ## Folder structure
 
@@ -20,10 +25,16 @@ The repo must keep building with `npm run build` and deploy to **Vercel** with z
 src/
   main.tsx            # entry, do not rename
   App.tsx             # router, generated from the registry (rarely edited)
-  index.css           # Tailwind import, tooling theme import, base styles; Mid-fi uncomments the memorisely.css import
+  index.css           # imports: Tailwind, shadcn helpers, base theme, ONE fidelity theme, tooling theme
   styles/
-    memorisely.css    # Mid-fi tokens for Tailwind v4: colors (light + dark), Inter, type scale, easing
+    base.css          # shared: semantic utility mapping, dark variant, base styles (every fidelity)
+    lofi.css          # Lo-fi values: grayscale (default)
+    lofi-plus.css     # Lo-fi+ values: grayscale + one accent
+    memorisely.css    # Mid-fi values: Memorisely colors (light + dark), Inter, type scale, easing
+    shadcn.css        # shadcn/ui Tailwind helpers (copied from the shadcn package; do not edit)
     theme.ts          # useTheme(): Light / Dark / System for Mid-fi prototypes with dark mode
+  lib/
+    utils.ts          # cn() helper (shadcn/ui convention)
   prototype/
     registry.ts       # THE prototype registry: user types, flows, screens, routes, shortcuts
     types.ts          # registry data model
@@ -37,7 +48,9 @@ src/
     designCheck.ts    # development-only design check (loads screen source, shows issues)
     designRules.ts    # the design check rules; do not edit them to hide an issue
     tooling.css       # LowCode Agency brand tokens (lca-*) for Prototype Home and the flow bar only
-  components/         # shared UI: Placeholder, Note, PhoneFrame, app shell/nav, buttons…
+  components/
+    ui/               # shadcn/ui (Radix) components: button, dialog, select, tabs, table… (do not restyle)
+    …                 # your shared parts: app shell, nav, product-specific blocks; Placeholder, Note, PhoneFrame
   screens/            # one file per screen: DashboardScreen.tsx… every file here must be registered
                       # (shared parts go in components/, mock data in data/)
   data/               # typed mock data

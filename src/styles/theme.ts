@@ -1,13 +1,15 @@
-import { useSyncExternalStore } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
 
 // Light / Dark / System theme for Mid-fi prototypes whose brief asks for dark mode (needs memorisely.css).
-// The product shell applies the class; Prototype Home and the flow bar stay light:
+// Call useProductTheme() once in the product shell. While the shell is mounted, it puts "dark" on <body>, so the
+// screen and everything rendered in a portal (dialogs, sheets, menus, popovers, toasts) follow the theme.
+// Prototype Home and the flow bar use their own lca-* colors, so they never change:
 //
-//   const { themeClass } = useTheme();
-//   <div className={`${themeClass} min-h-[calc(100dvh-var(--prototype-bar-height,0px))] bg-background text-foreground`}>
+//   useProductTheme();
+//   <div className="min-h-[calc(100dvh-var(--prototype-bar-height,0px))] bg-background text-foreground">
 //
-// A theme switcher calls setChoice('light' | 'dark' | 'system'). The choice is saved in localStorage and read
-// before the first render, so there is no flash of the wrong theme.
+// A theme switcher calls setChoice('light' | 'dark' | 'system') from useTheme(). The choice is saved in
+// localStorage and read before the first render, so there is no flash of the wrong theme.
 
 export type ThemeChoice = 'light' | 'dark' | 'system';
 
@@ -51,4 +53,14 @@ export function useTheme() {
   const prefersDark = useSyncExternalStore(subscribe, () => media.matches);
   const resolved: 'light' | 'dark' = current === 'system' ? (prefersDark ? 'dark' : 'light') : current;
   return { choice: current, setChoice: setThemeChoice, resolved, themeClass: resolved === 'dark' ? 'dark' : '' };
+}
+
+/** Call once in the product shell: applies the theme to <body> while the shell is mounted. */
+export function useProductTheme() {
+  const theme = useTheme();
+  useEffect(() => {
+    document.body.classList.toggle('dark', theme.resolved === 'dark');
+    return () => document.body.classList.remove('dark');
+  }, [theme.resolved]);
+  return theme;
 }

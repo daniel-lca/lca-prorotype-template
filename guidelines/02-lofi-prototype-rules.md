@@ -11,13 +11,16 @@ rules in text).
 
 ## Visual
 
-- **Grayscale only.** Use Tailwind `neutral-*` shades. The one exception: if the brief says
-  "Lo-fi+", allow a single accent color for primary buttons and active states. Use the brief's accent color
-  (default `violet-600`, with `violet-700` for hover).
+- **Build with the components** in `src/components/ui` (Button, Input, Select, Card, Dialog, Tabs, Table…). The
+  lo-fi theme (`src/styles/lofi.css`) renders them grayscale; use their semantic classes (`bg-muted`,
+  `text-muted-foreground`, `border-border`) or `neutral-*` shades for your own layout.
+- **Grayscale only.** The one exception: if the brief says "Lo-fi+", the `lofi-plus.css` theme gives primary
+  buttons, focus, and selected states one accent color (default violet; set the brief's accent in that file).
 - **System font stack** (Tailwind default `font-sans`). No custom fonts, no icon fonts.
 - **Images = placeholder boxes**: a gray box with a diagonal cross or a label like `[Hero image]`.
   Use the `Placeholder` component in `src/components/Placeholder.tsx`. No stock photos, no generated images.
-- **Icons**: simple gray circles/squares or text labels. Only add an icon library if the user asks.
+- **Icons**: text labels in screens; do not import `lucide-react` in lo-fi screens. The small icons inside the
+  components (a select chevron, a checkbox tick, a dialog close button) are fine. Only add icons if the user asks.
 - Borders, spacing, and hierarchy do the work: 1px `neutral-300` borders, clear headings, and whitespace that
   follows `design-system/spacing.md` (density matches the category; not every screen is spacious).
 - Type follows `design-system/text.md`: Regular and Medium do most of the work, Semibold only on buttons, no Bold,

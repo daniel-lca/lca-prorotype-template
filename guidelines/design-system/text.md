@@ -715,7 +715,7 @@ For marketing pages, use the responsive patterns in [responsive.md](responsive.m
 
 1. Inter is already loaded in `index.html` (the template's tooling uses it too). Do not add another font link.
 
-2. Turn on `src/styles/memorisely.css` ([README.md](README.md) "Mid-fi setup"). It already sets `--font-sans` to
+2. Turn on `src/styles/memorisely.css` ([README.md](README.md) "Fidelity setup"). It already sets `--font-sans` to
    Inter and defines the product scale. Each token sets size, line height, letter spacing and weight together, so
    `text-heading-1` is the whole style:
 

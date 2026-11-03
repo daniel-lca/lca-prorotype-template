@@ -23,28 +23,53 @@ you do not need to read all of them before every change.
 
 The brief's **Fidelity** answer (`project/BRIEF.md`) decides the visual rules:
 
-- **Lo-fi** / **Lo-fi+** → `02-lofi-prototype-rules.md` wins on anything visual (grayscale, no icon library, no
-  animation, `Placeholder` boxes). From the "every prototype" files, apply the behavior: semantics, keyboard,
-  focus, labels, states, feedback, disclosure, layout, spacing, type weights and casing. Where a file says
-  "Violet focus ring", use a `neutral-900` ring; where it says "Destructive color", use text plus a heavier
-  border; where it says "Inter", keep the system font stack; where it shows a spinner, skeleton shimmer, or
-  any other animation, use static text ("Saving…") or still gray boxes.
-- **Mid-fi (Memorisely)** → every file above applies. `Placeholder` is still used for images, and `Note`
-  stays available for reviewer annotations. Turn on the tokens first (next section).
+- **Lo-fi** / **Lo-fi+** → `02-lofi-prototype-rules.md` wins on anything visual (grayscale, no icons in screens, no
+  animation, `Placeholder` boxes). The components in `src/components/ui` render grayscale from `src/styles/lofi.css`
+  (Lo-fi+ adds one accent from `lofi-plus.css`). From the "every prototype" files, apply the behavior: semantics,
+  keyboard, focus, labels, states, feedback, disclosure, layout, spacing, type weights and casing. Where a file says
+  "Violet focus ring" or "Destructive color", the lo-fi theme already maps it to grays; where it says "Inter", keep
+  the system font stack; where it shows a spinner, skeleton shimmer, or any other animation, use static text
+  ("Saving…") or still gray boxes.
+- **Mid-fi (Memorisely)** → every file above applies, with the values in `src/styles/memorisely.css`. `Placeholder`
+  is still used for images, and `Note` stays available for reviewer annotations.
 
-## Mid-fi setup (do this once, during project setup)
+## Components (every fidelity)
 
-The Memorisely tokens are already written for Tailwind v4 in `src/styles/memorisely.css`. Do not write your own.
+This template ships **shadcn/ui** components built on **Radix** in `src/components/ui`. Build screens from them:
 
-1. In `src/index.css`, uncomment `@import './styles/memorisely.css';` (it stays directly under `@import 'tailwindcss';`).
-2. Inter is already loaded in `index.html`; `memorisely.css` makes it the product font.
-3. Add `lucide-react` to `package.json` dependencies (the pre-approved Mid-fi icon library).
-4. If the brief asks for dark mode, use `useTheme()` from `src/styles/theme.ts` (see [light-dark-mode.md](light-dark-mode.md)).
-5. Paint the product shell, not `body`: the shell root gets `bg-background text-foreground`.
-6. Set `fidelity: 'mid-fi'` in `src/prototype/registry.ts`, so the design check applies the Mid-fi rules (for
-   example `bg-violet-600` → `bg-primary`).
+```tsx
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+```
 
-The file gives you these utilities (light and dark values included):
+Available: `accordion`, `alert`, `alert-dialog`, `avatar`, `badge`, `breadcrumb`, `button`, `card`, `checkbox`,
+`dialog`, `dropdown-menu`, `empty`, `field`, `input`, `label`, `popover`, `progress`, `radio-group`, `scroll-area`,
+`select`, `separator`, `sheet`, `skeleton`, `sonner` (toasts), `switch`, `table`, `tabs`, `textarea`, `toggle`,
+`toggle-group`, `tooltip`.
+
+- They already follow these rules: semantic colors, radius, focus rings, keyboard behavior, and enter animations.
+  Style them through their props (`variant`, `size`) and the theme files, not by overriding their colors.
+- Use Radix patterns: `asChild` to render a trigger as another element, for example
+  `<Button asChild><ScreenLink to="…">…</ScreenLink></Button>`. This template does not use Base UI (`render` prop).
+- Toasts: call `toast('…')` from `sonner`. The `Toaster` and `TooltipProvider` are already mounted in `src/App.tsx`.
+- A state that must open directly (an open dialog, menu, or sheet) is a registered variant whose component renders
+  the parent with the overlay open, for example `<AlertDialog defaultOpen>`. The gallery shows it open, inside its
+  own preview.
+- Need another component? Run `npx shadcn@latest add <name>`. It adds one file to `src/components/ui` and uses the
+  existing theme. Do not edit the files in `src/components/ui` except to fix a bug.
+
+## Fidelity setup (do this once, during project setup)
+
+1. In `src/index.css`, keep exactly one fidelity theme import active: `lofi.css` (default), `lofi-plus.css`, or
+   `memorisely.css`. Comment out the other two.
+2. Set `fidelity` in `src/prototype/registry.ts` to the same level (`'lo-fi'`, `'lo-fi-plus'`, `'mid-fi'`), so the
+   design check applies the right rules.
+3. Lo-fi+: if the brief names an accent other than violet, change the five accent lines in `src/styles/lofi-plus.css`.
+4. Mid-fi: Inter and `lucide-react` are already installed; `memorisely.css` makes Inter the product font. If the brief
+   asks for dark mode, call `useProductTheme()` from `src/styles/theme.ts` in the product shell (see
+   [light-dark-mode.md](light-dark-mode.md)).
+
+Every fidelity gives you the same utilities, with different values:
 
 | Role | Utilities |
 |---|---|
@@ -53,44 +78,37 @@ The file gives you these utilities (light and dark values included):
 | Primary action | `bg-primary`, `hover:bg-primary-hover`, `text-primary-foreground` |
 | Selected / active only | `bg-accent`, `text-accent-foreground`. Neutral hover uses `hover:bg-muted`, not accent |
 | Lines and focus | `border-border`, `border-input`, `outline-ring` / `ring-ring` |
-| Feedback | `bg-destructive` / `text-destructive-foreground`, `text-success`, `bg-success-subtle` / `text-success-subtle-foreground` (same for `warning`, `info`) |
-| Type | `text-page-title`, `text-page-title-sm`, `text-heading-1/2/3`, `text-body`, `text-body-lg`, `text-small` |
-| Motion | `ease-standard` with `duration-100/150/200/300` |
+| Feedback | `bg-destructive` / `text-destructive-foreground`, `text-success`, `bg-success-subtle` / `text-success-subtle-foreground` (same for `warning`, `info`). Grays in lo-fi |
+| Type (Mid-fi) | `text-page-title`, `text-page-title-sm`, `text-heading-1/2/3`, `text-body`, `text-body-lg`, `text-small` |
+| Motion (Mid-fi) | `ease-standard` with `duration-100/150/200/300` |
 
-Do not add `--radius*`, `--spacing*`, or `--font-<weight>` variables. Tailwind's defaults already match those scales.
+Do not add `--radius-*`, `--spacing*`, or `--font-<weight>` variables. Tailwind's defaults already match those scales.
 
 ## Shared conventions (every fidelity)
 
 | Topic | Use |
 |---|---|
-| Focus ring | `focus-visible:outline-2 focus-visible:outline-offset-2` plus `focus-visible:outline-neutral-900` (lo-fi) or `focus-visible:outline-ring` (Mid-fi). Never `outline-none` without this replacement |
-| Borders | Always give a color: `border border-neutral-300` (lo-fi) or `border border-border` (Mid-fi). A bare `border` uses the text color in Tailwind v4 |
-| Dialog | `<dialog className="m-auto …">` opened with `showModal()`. Tailwind's reset removes the browser's centering margin, so `m-auto` is required. Style the overlay with `backdrop:bg-black/40` (lo-fi: `backdrop:bg-neutral-900/40`) |
-| Menus | Use a list of buttons inside the panel: Tab moves between items, Escape closes and returns focus to the trigger. Do not add `role="menu"` unless you also add arrow-key handling |
+| Focus ring | The components have one. For your own interactive elements: `focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring`. Never `outline-none` without a replacement |
+| Borders | A bare `border` already uses `border-border` (set in `src/styles/base.css`). Use `border-input` for form controls |
+| Dialog, sheet, menu | `Dialog`, `AlertDialog`, `Sheet`, `DropdownMenu`, `Popover` from `@/components/ui`. Never a hand-made `fixed inset-0` overlay |
 
 ## Stack translations
 
-These docs were written for a stack with shadcn/ui and Radix. This template is Vite + React + Tailwind v4
-only (`03-tech-and-deploy.md`). Translate as follows, and do not add a package unless this table allows it
-or the brief records an exception under "Decisions & exceptions".
+These docs were written for shadcn/ui, and this template ships shadcn/ui (Radix) on Vite + React + Tailwind v4
+(`03-tech-and-deploy.md`). Translate the few remaining differences as follows, and do not add a package unless this
+table allows it or the brief records an exception under "Decisions & exceptions".
 
 | The docs say | In this template |
 |---|---|
-| shadcn/ui or Radix Dialog / AlertDialog | Native `<dialog className="m-auto">` opened with `showModal()` (gives focus trap, Escape, backdrop). See "Shared conventions" |
-| shadcn `<Button>` / `<Input>` / `<Card>` components | Native `<button>`, `<input>`, `<div>` with Tailwind classes. There is no `@/components/ui/*`; if a pattern repeats, create a small component in `src/components/` |
-| Accordion / Collapsible | Native `<details>` + `<summary>` |
-| Tabs | Buttons with `role="tab"`, `aria-selected`, arrow-key handling, panels with `role="tabpanel"` |
-| DropdownMenu / Popover | A button with `aria-expanded` toggling a positioned panel; close on Escape and outside click |
-| Sheet / Drawer | `<dialog>` styled as a side or bottom panel |
-| Toast / Sonner | A small `aria-live="polite"` region rendered by the app shell |
-| Skeleton / Progress | Tailwind boxes (`bg-neutral-200` / `bg-slate-200`) and native `<progress>` |
-| Lucide (`lucide-react`) | **Mid-fi only:** allowed; add `lucide-react` to `package.json` and note it in the brief. Lo-fi: no icon library |
-| Framer Motion / any motion library | Not allowed. Use Tailwind `transition-*`, `duration-*`, `ease-standard`, and `starting:` utilities. If an interaction needs more, simplify it |
-| Tailwind theme config / shadcn theme variables / `next-themes` | `src/styles/memorisely.css` (Mid-fi) and `src/styles/theme.ts` (dark mode). There is no `tailwind.config.js` |
-| Inter typeface | **Mid-fi only:** Google Fonts `<link>` in `index.html`; `--font-sans` is in `memorisely.css`. Lo-fi: system font stack |
+| shadcn/ui component (`Button`, `Dialog`, `Tabs`, `Accordion`, `Sheet`, `Skeleton`, `Progress`…) | The same component from `@/components/ui/…`. Add a missing one with `npx shadcn@latest add <name>` |
+| Toast / Sonner | `toast()` from `sonner`; the `Toaster` is already mounted |
+| Lucide (`lucide-react`) | Installed. Mid-fi screens may use icons. Lo-fi and Lo-fi+ screens use text labels (the components' own small icons are fine) |
+| Framer Motion / any motion library | Not allowed. Use Tailwind `transition-*`, `duration-*`, `ease-standard`, the components' built-in animations, and `starting:` utilities. If an interaction needs more, simplify it |
+| Tailwind theme config / shadcn theme variables / `next-themes` | `src/styles/base.css` + one fidelity file (`lofi.css`, `lofi-plus.css`, `memorisely.css`) and `src/styles/theme.ts` (dark mode). There is no `tailwind.config.js` |
+| Inter typeface | **Mid-fi only:** already loaded in `index.html`; `--font-sans` is in `memorisely.css`. Lo-fi: system font stack |
 | Type scale tokens | Lo-fi: nearest Tailwind default sizes. Mid-fi: `text-page-title`, `text-heading-1`… from `memorisely.css` (see [text.md](text.md)) |
 | Spacing tokens (`--spacing-*`) | Tailwind's default spacing utilities already match the scale (`gap-1.5` = 6px). Do not redefine them |
-| Radius tokens (`--radius`) | Tailwind's default radius utilities already match the scale (see [radius.md](radius.md) §19). Do not redefine them |
+| Radius tokens (`--radius`) | Tailwind's default radius utilities already match the scale (see [radius.md](radius.md) §19). `--radius` itself is only used by toasts |
 | Duration tokens (`--duration-*`) | Tailwind has no duration tokens. Use `duration-100`, `duration-150`, `duration-200`, `duration-300`, `duration-500` |
 
 ## Precedence
