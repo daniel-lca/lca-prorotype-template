@@ -43,6 +43,25 @@ export function counts() {
   return { userTypes: registry.userTypes.length, flows: registry.flows.length, screens: registry.screens.length - states, states };
 }
 
+/** "no-colleagues" -> "no colleagues". */
+export const humanize = (value: string) => value.replace(/[-_]+/g, ' ').trim();
+
+/** State label of a variant ("no colleagues"), or undefined for a normal screen. */
+export function stateLabel(screen: Screen): string | undefined {
+  return screen.parentScreenId ? humanize(screen.variant ?? 'state') : undefined;
+}
+
+/**
+ * Display label. A variant is shown as "<parent name> · <state>", so its own name never repeats the state.
+ * Example: "Choose colleague · no colleagues".
+ */
+export function screenLabel(screen: Screen): string {
+  const state = stateLabel(screen);
+  if (!state) return screen.name;
+  const parent = screen.parentScreenId ? screenById(screen.parentScreenId) : undefined;
+  return `${parent?.name ?? screen.name} · ${state}`;
+}
+
 export function previewViewport(screen: Screen): Viewport {
   return screen.previewViewport ?? registry.previewViewport ?? DEFAULT_PREVIEW_VIEWPORT;
 }
