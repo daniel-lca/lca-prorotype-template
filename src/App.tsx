@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Link, Navigate, Route, Routes, useParams } from 'react-router-dom';
+import { usePhoneFrameMounted } from '@/components/PhoneFrame';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { flowById, flowStartHref, screenLabel } from './prototype/derive';
@@ -60,7 +61,9 @@ function HomeRoute() {
 }
 
 // TooltipProvider and Toaster (toast() from 'sonner') are mounted once here for every screen.
+// Inside PhoneFrame, the frame shows its own toaster so toasts stay inside the device mockup.
 export default function App() {
+  const phoneFrame = usePhoneFrameMounted();
   return (
     <TooltipProvider>
       <BrowserRouter>
@@ -73,7 +76,7 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-      <Toaster />
+      {!phoneFrame && <Toaster />}
     </TooltipProvider>
   );
 }

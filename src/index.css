@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@import './styles/shadcn.css';
+@import './styles/component-states.css';
 @import './styles/base.css';
 
 /* Fidelity theme: exactly ONE of these three imports is active. Project setup sets it from project/BRIEF.md

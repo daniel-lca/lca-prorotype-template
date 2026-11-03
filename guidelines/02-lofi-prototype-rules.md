@@ -66,7 +66,7 @@ rules in text).
 |---|---|
 | Responsive | Mobile-first. Check at 390px, 768px, 1280px. Nav collapses on mobile. |
 | Desktop only | Build for 1440px wide, min width 1280px. No mobile layout. |
-| Mobile only | Build at 390px. On wider screens, center the app inside a phone frame (`PhoneFrame` component). Prototype Home stays full width, outside the frame. Set `previewViewport: { width: 390, height: 844 }` in the registry so gallery previews use the phone size. |
+| Mobile only | Build at 390px. On wider screens, center the app inside a phone frame (`PhoneFrame` component). Prototype Home stays full width, outside the frame. Set `previewViewport: { width: 390, height: 844 }` in the registry so gallery previews use the phone size. Dialogs, sheets, menus, and toasts from `src/components/ui` open inside the frame, and the frame scrolls without a scrollbar; do not position overlays yourself. |
 | Mobile + desktop | Two layouts: the mobile layout below 768px (unprefixed classes) and the desktop layout from 768px up (`md:` classes). 768–1023px uses the desktop layout, so check it at 768px and 1280px. |
 
 ## Wireframe notes (optional)

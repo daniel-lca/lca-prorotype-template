@@ -54,3 +54,14 @@
     @apply bg-background text-foreground antialiased;
   }
 }
+
+/* Phones and tablets show no scrollbars (content still scrolls), so prototypes viewed at those widths in a desktop
+   browser look like the device. Desktop widths keep normal scrollbars. */
+@media (width < 64rem) {
+  * {
+    scrollbar-width: none;
+  }
+  *::-webkit-scrollbar {
+    display: none;
+  }
+}

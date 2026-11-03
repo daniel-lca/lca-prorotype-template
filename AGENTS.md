@@ -19,6 +19,9 @@ In that case, follow these rules:
    Prototype Home shows an empty state on purpose.
 6. Send the reply described in "Your first reply" at the end of this file.
 
+If a template file is missing after the import (for example the dev server cannot resolve a file that
+`src/index.css` imports), name it in your first reply so the user can report it. Do not replace it with a guess.
+
 If you changed files before you read this, list each changed file in your reply. Then restore each file to its
 imported content. Keep `package-lock.json` only.
 
