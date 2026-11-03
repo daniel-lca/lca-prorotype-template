@@ -212,4 +212,4 @@ Before completion, verify that All Prototype Screens shows actual registered scr
 
 Check that each preview matches its direct route and intended state, uses deterministic data, cannot mutate state or navigate while previewed, keeps embedded controls out of the keyboard order, and provides an accessible external `Open Screen` link. Check that modal and drawer states remain contained, tooling bars are excluded, and product styling is preserved. Visually inspect the gallery at desktop and mobile widths for legible previews, multiple side-by-side desktop screens, and no page-level horizontal overflow.
 
-Do not accept a text-only list, placeholder gallery, static screenshot gallery, or an unchanged starter `ScreenRow` implementation as complete.
+The template's gallery (`ScreenPreview.tsx`) already meets these rules. Do not replace it with a text-only list, placeholder gallery, or static screenshot gallery. If a preview is blank or shows the wrong state, fix the screen so it renders its intended state on direct load.

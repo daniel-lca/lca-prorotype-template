@@ -46,11 +46,18 @@ does not exist before checking.
 screen order, routes, start screens, status, and developer shortcuts. Prototype Home, All Prototype Screens,
 routing, flow navigation, and counts are all derived from it.
 
-**All Prototype Screens is a visual gallery:** show the actual registered screen components side by side, grouped by user type and flow, including rendered variants. Names, descriptions, and route links alone are insufficient. The starter `ScreenRow` text list must be replaced when building product screens. Follow `guidelines/04-prototype-system.md` section 2B and the visual checks in `guidelines/08-ai-workflow.md`.
+**All Prototype Screens is a visual gallery, and it is already built.** Prototype Home renders every registered
+screen and variant side by side with `src/prototype/ScreenPreview.tsx`. Do not replace it with a text list, and do
+not build a second gallery. If the prototype is mobile-only, set `previewViewport: { width: 390, height: 844 }` in
+the registry. See `guidelines/04-prototype-system.md` section 2B and the visual checks in `guidelines/08-ai-workflow.md`.
+
+**Screens link to other screens by screen ID**, with `ScreenLink` or `useGoToScreen` from
+`src/prototype/navigation.tsx`. Never write a route string inside a screen.
 
 Never:
 
 - create a screen without registering it (every file in `src/screens/` must be in the registry)
+- hardcode a route in a screen, or use `<Link to="/…">` / `navigate("/…")` between screens
 - maintain Prototype Flows and All Prototype Screens as separate lists, or hardcode flows/screens in any view
 - leave a screen without a flow unless it is explicitly `standalone: true`
 - leave a flow without a valid user type
@@ -64,7 +71,7 @@ Never:
 
 1. Identify the user type and the existing flow it belongs to.
 2. Inspect adjacent screens in that flow and confirm the screen does not already exist.
-3. Create the screen in `src/screens/`, reusing the flow's shell and components.
+3. Create the screen in `src/screens/`, reusing the flow's shell and components. Link to other screens with `ScreenLink` / `useGoToScreen`.
 4. Register it in `registry.ts` with a stable ID and route, and insert its ID in the correct position of the flow's `screenIds`.
 5. Run the integrity checklist in `guidelines/08-ai-workflow.md`.
 
@@ -76,16 +83,20 @@ Never:
 
 ### Changing existing work
 
-Renames, moves, reorders, deletions, route changes, and user-type changes are applied in the registry and
-propagated to every in-screen link. Keep IDs and routes stable when only a display name changes.
+Renames, moves, reorders, deletions, route changes, and user-type changes are applied in the registry. In-screen
+links use screen IDs, so a route change needs no link edits; a removed or renamed ID shows as a dashed "unknown
+screen" link and a console error. Keep IDs and routes stable when only a display name changes.
 See `guidelines/06-screen-flow-rules.md`.
 
 ## Final verification
 
 Before finishing any prototype task, open Prototype Home (`/`) and confirm:
 
-- the "Registry issues" box is absent (no orphan screens or flows, no duplicate IDs or routes, no mismatched user types)
-- Prototype Flows and All Prototype Screens show the change, with correct order and step numbers
+- the "Registry issues" box is absent (no orphan screens or flows, no duplicate IDs or routes, no mismatched user types),
+  and the flow bar on your screens shows no "registry issues" badge
+- Prototype Flows and All Prototype Screens show the change, with correct order and step numbers, and each new
+  screen or variant has a rendered preview that shows its intended state
+- the browser console has no "Unknown screen ID" errors
 - `Open flow` opens the start screen, and direct screen links open exactly that screen
 - previous/next in the flow bar still make sense
 - `npm run build` passes
