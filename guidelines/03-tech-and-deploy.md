@@ -25,13 +25,13 @@ The repo must keep building with `npm run build` and deploy to **Vercel** with z
 src/
   main.tsx            # entry, do not rename
   App.tsx             # router, generated from the registry (rarely edited)
-  index.css           # imports: Tailwind, shadcn helpers, base theme, ONE fidelity theme, tooling theme
+  index.css           # imports: Tailwind, component states, base theme, ONE fidelity theme, tooling theme
   styles/
     base.css          # shared: semantic utility mapping, dark variant, base styles (every fidelity)
     lofi.css          # Lo-fi values: grayscale (default)
     lofi-plus.css     # Lo-fi+ values: grayscale + one accent
     memorisely.css    # Mid-fi values: Memorisely colors (light + dark), Inter, type scale, easing
-    shadcn.css        # shadcn/ui Tailwind helpers (copied from the shadcn package; do not edit)
+    component-states.css # state variants the components need (data-open:, data-checked:…); keep it
     theme.ts          # useTheme(): Light / Dark / System for Mid-fi prototypes with dark mode
   lib/
     utils.ts          # cn() helper (shadcn/ui convention)

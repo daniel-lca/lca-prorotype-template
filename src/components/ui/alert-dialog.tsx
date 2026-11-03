@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { usePortalContainer } from "@/lib/portal" // template: overlays stay inside PhoneFrame
 import { cn } from "cn"
 import { AlertDialog as AlertDialogPrimitive } from "radix-ui"
 
@@ -24,7 +25,7 @@ function AlertDialogPortal({
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Portal>) {
   return (
-    <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" {...props} />
+    <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" container={usePortalContainer()} {...props} />
   )
 }
 

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { usePortalContainer } from "@/lib/portal" // template: overlays stay inside PhoneFrame
 import { cn } from "cn"
 import { Popover as PopoverPrimitive } from "radix-ui"
 
@@ -23,7 +24,7 @@ function PopoverContent({
   ...props
 }: React.ComponentProps<typeof PopoverPrimitive.Content>) {
   return (
-    <PopoverPrimitive.Portal>
+    <PopoverPrimitive.Portal container={usePortalContainer()}>
       <PopoverPrimitive.Content
         data-slot="popover-content"
         align={align}
