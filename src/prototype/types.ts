@@ -4,6 +4,12 @@ import type { ComponentType } from 'react';
 
 export type Status = 'planned' | 'draft' | 'in-progress' | 'ready-for-review' | 'approved' | 'deprecated';
 
+/** Size the screen is designed for. Gallery previews render at this size and scale down. */
+export interface Viewport {
+  width: number;
+  height: number;
+}
+
 export interface UserType {
   id: string;
   name: string;
@@ -43,6 +49,8 @@ export interface Screen {
   variant?: string;
   status?: Status;
   tags?: string[];
+  /** Overrides registry.previewViewport for this screen, e.g. a mobile screen in a desktop prototype. */
+  previewViewport?: Viewport;
 }
 
 export interface Shortcut {
@@ -57,6 +65,11 @@ export interface Shortcut {
 export interface Registry {
   /** Product name shown on Prototype Home. */
   name: string;
+  /**
+   * Viewport the gallery uses for screen previews. Defaults to 1440 × 900.
+   * Mobile-only prototypes use { width: 390, height: 844 }.
+   */
+  previewViewport?: Viewport;
   userTypes: UserType[];
   flows: Flow[];
   screens: Screen[];

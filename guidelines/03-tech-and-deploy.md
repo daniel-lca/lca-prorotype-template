@@ -24,12 +24,16 @@ src/
   prototype/
     registry.ts       # THE prototype registry: user types, flows, screens, routes, shortcuts
     types.ts          # registry data model
-    derive.ts         # derived views (ordering, steps, grouping)
-    validate.ts       # integrity checks shown on Prototype Home
-    PrototypeHome.tsx # Prototype Flows / All Prototype Screens / Developer shortcuts
+    derive.ts         # derived views (ordering, steps, grouping, flow context, links)
+    validate.ts       # integrity checks shown on Prototype Home and in the flow bar
+    navigation.tsx    # ScreenLink / useGoToScreen: links between screens by screen ID
+    PrototypeHome.tsx # Prototype Flows / All Prototype Screens (visual gallery) / Developer shortcuts
+    ScreenPreview.tsx # one gallery preview: the real screen in an inert, scaled iframe
+    preview.ts        # preview mode (?preview=1) used by the gallery iframes
     FlowBar.tsx       # flow navigation above each screen
   components/         # shared UI: Placeholder, Note, PhoneFrame, app shell/nav, buttons…
   screens/            # one file per screen: DashboardScreen.tsx… every file here must be registered
+                      # (shared parts go in components/, mock data in data/)
   data/               # typed mock data
 project/
   BRIEF.md            # the filled-in brief (product source of truth)

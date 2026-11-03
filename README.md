@@ -36,7 +36,7 @@ screen from that registry, grouped by user type. If the registry is out of sync,
 | `guidelines/04`–`08` | Prototype system: Prototype Home, registry schema, screen/flow lifecycle, UX rules, AI workflow |
 | `guidelines/design-system/` | Memorisely design rules (accessibility, interactions, status, spacing, text, color, radius…) and when each applies |
 | `project/BRIEF.md` | The brief, filled in during intake |
-| `src/prototype/` | Registry, validation, Prototype Home, flow bar |
+| `src/prototype/` | Registry, validation, Prototype Home (with the visual screen gallery), flow bar, `ScreenLink` |
 | `src/components/` | `Placeholder`, `Note`, `PhoneFrame` building blocks |
 
 ## Fidelity levels

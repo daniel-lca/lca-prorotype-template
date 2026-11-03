@@ -20,6 +20,10 @@ import type { Registry } from './types';
 //     name: 'Welcome', route: '/prototype/customer/onboarding/welcome', component: WelcomeScreen,
 //   }, …],
 //   shortcuts: [{ id: 'empty-dashboard', label: 'Empty dashboard', screenId: '…', order: 1 }],
+//   previewViewport: { width: 390, height: 844 },   // only for mobile-only prototypes (default 1440 × 900)
+//
+// Inside screens, link by screen ID (src/prototype/navigation.tsx), never by route:
+//   <ScreenLink to="customer-onboarding-create-account">Create account</ScreenLink>
 
 export const registry: Registry = {
   name: 'Untitled prototype',

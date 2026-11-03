@@ -16,10 +16,12 @@ The registry is already implemented. Use it; do not create a second one.
 |---|---|
 | `src/prototype/registry.ts` | **The registry.** The only file where user types, flows, screens, routes, and shortcuts are declared. |
 | `src/prototype/types.ts` | TypeScript version of the model below (`UserType`, `Flow`, `Screen`, `Shortcut`). |
-| `src/prototype/derive.ts` | Derived views: flows per user type, ordered screens, step numbers, prev/next. |
+| `src/prototype/derive.ts` | Derived views: flows per user type, ordered screens, step numbers, prev/next, flow context, links. |
 | `src/prototype/validate.ts` | The §9 validation rules, plus a check that every file in `src/screens/` is registered. |
-| `src/prototype/PrototypeHome.tsx` | Prototype Home at `/`: Prototype Flows, All Prototype Screens, Developer shortcuts, registry issues. |
-| `src/prototype/FlowBar.tsx` | Bar above every screen: user type, flow, step X of N, previous/next, back to home. |
+| `src/prototype/navigation.tsx` | `ScreenLink` and `useGoToScreen`: links between screens by screen ID. |
+| `src/prototype/PrototypeHome.tsx` | Prototype Home at `/`: Prototype Flows, All Prototype Screens (visual gallery), Developer shortcuts, registry issues. |
+| `src/prototype/ScreenPreview.tsx` | One gallery preview: the registered screen in an inert, scaled iframe (`?preview=1`). |
+| `src/prototype/FlowBar.tsx` | Bar above every screen: user type, flow, step X of N, previous/next, back to home, registry-issues badge. |
 | `src/App.tsx` | Generates one route per registered screen, plus `/flow/:flowId` (opens the flow's start screen). |
 
 Template-specific details:
@@ -28,7 +30,12 @@ Template-specific details:
 - Standalone screens set `standalone: true` and omit `flowId`.
 - Variants set `parentScreenId` + `variant`, share the parent's `flowId`, and are **not** listed in `screenIds`.
 - Shared screens set `shared: true`; other flows may then list them in their `screenIds`.
-- Prototype Home shows every validation issue at the top of the page. Zero issues is part of "done".
+- `previewViewport` (`{ width, height }`) sets the gallery preview size for the whole registry (default
+  1440 × 900) or for one screen.
+- Routes are plain paths (no `:params`, `?`, `#`, or `*`) and must not start with `/flow/`, which is reserved
+  for `Open flow` links.
+- Prototype Home shows every validation issue at the top of the page, and the flow bar shows a badge with the
+  count on every screen. Zero issues is part of "done".
 
 ---
 
@@ -259,3 +266,6 @@ Projects are encouraged to automate these checks when practical.
 ## Visual preview derivation
 
 All Prototype Screens renders each visual preview from the same registered React `component` used by the interactive route. Preview grouping, step labels, state labels, direct links, and counts must remain derived from this registry. If a screen needs preview-specific configuration or deterministic demo data, extend the existing typed registry model deliberately and keep fixtures typed; never create a second screen catalog or duplicate product UI and business logic. See `04-prototype-system.md` for the gallery behavior.
+
+In this template, `previewViewport` is the only preview-specific field. Demo data comes from `src/data/`, the same
+data the interactive route uses.

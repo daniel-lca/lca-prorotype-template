@@ -192,6 +192,7 @@ When this occurs:
 - keep one route
 - document the screen as shared
 - reference it from multiple flows only when intentional
+- link to it with `ScreenLink` / `useGoToScreen`, so the reviewer stays in the flow they came from (`?flow=`)
 
 Do not duplicate components or metadata simply to make flow lists easier.
 

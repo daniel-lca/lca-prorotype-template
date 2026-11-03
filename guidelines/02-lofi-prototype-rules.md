@@ -28,12 +28,27 @@ rules in text).
 - Use **realistic placeholder copy** that matches the product (real-sounding names, labels, numbers).
   Lorem ipsum is only acceptable for long body text.
 - Keep mock data in `src/data/` as typed arrays, so screens stay consistent with each other.
+- **Every screen shows its intended state when opened directly.** Read its content from `src/data/`. Do not
+  depend on router state, query strings, or input from earlier steps. Direct links, developer shortcuts, and the
+  Prototype Home gallery all open screens directly.
 
 ## Behavior
 
 - **Every core flow must be clickable end to end.** Buttons and links in a flow must navigate.
-- **Every screen is registered** in `src/prototype/registry.ts` (see `04-prototype-system.md`). In-screen
-  buttons navigate with the target screen's registered route; never hardcode a route that is not in the registry.
+- **Every screen is registered** in `src/prototype/registry.ts` (see `04-prototype-system.md`).
+- **Link between screens by screen ID**, with `ScreenLink` or `useGoToScreen` from `src/prototype/navigation.tsx`:
+
+  ```tsx
+  <ScreenLink to="customer-booking-confirm" className="…">Confirm booking</ScreenLink>
+
+  const goTo = useGoToScreen();
+  <form onSubmit={(e) => { e.preventDefault(); goTo('customer-booking-confirm'); }}>
+  ```
+
+  Never write a route string in a screen. Screen-ID links survive route changes and keep the reviewer's current
+  flow when a screen is shared between flows.
+- A variant (error, empty, modal…) is its own registered screen. Open it with its ID, for example
+  `goTo('customer-booking-pay-failed')`.
 - Forms: fields are interactive, submit goes to the next step. No real validation beyond "required".
 - Elements outside the core flows can be inert; give them `title="Not in prototype"`.
 - No backend, no auth provider, no database. Fake login = a button that navigates.
@@ -45,7 +60,7 @@ rules in text).
 |---|---|
 | Responsive | Mobile-first. Check at 390px, 768px, 1280px. Nav collapses on mobile. |
 | Desktop only | Build for 1440px wide, min width 1280px. No mobile layout. |
-| Mobile only | Build at 390px. On wider screens, center the app inside a phone frame (`PhoneFrame` component). Prototype Home stays full width, outside the frame. |
+| Mobile only | Build at 390px. On wider screens, center the app inside a phone frame (`PhoneFrame` component). Prototype Home stays full width, outside the frame. Set `previewViewport: { width: 390, height: 844 }` in the registry so gallery previews use the phone size. |
 | Mobile + desktop | Two layouts: under 768px and 1024px and above. Tablet can use the desktop layout. |
 
 ## Wireframe notes (optional)
@@ -59,3 +74,9 @@ This is the only non-gray element allowed.
 Prototype Home (`/`) and the flow bar above each screen are tooling, not product. They stay grayscale at every
 fidelity. Do not restyle them to match the product, and do not remove them. Reviewers can hide the flow bar with
 its **Hide** button during a demo.
+
+The flow bar sits above every screen and sets the CSS variable `--prototype-bar-height` (`0px` when hidden).
+Product layouts must leave room for it:
+
+- A full-height app shell uses `h-[calc(100dvh-var(--prototype-bar-height,0px))]` (or `min-h-[…]`), not `h-screen`.
+- A sticky product header uses `sticky top-[var(--prototype-bar-height,0px)]`, not `top-0`.

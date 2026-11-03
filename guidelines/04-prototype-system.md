@@ -193,6 +193,10 @@ When a screen is opened directly from All Prototype Screens:
 
 Direct links must be stable whenever possible.
 
+**In this template:** a shared screen keeps the flow the reviewer came from. Links add `?flow=<flowId>` when the
+current flow does not own the target screen, and the flow bar uses it for the step number and previous/next.
+`ScreenLink`, `useGoToScreen`, `Open flow`, and the gallery do this automatically.
+
 ---
 
 ## 7. Screen States
@@ -281,4 +285,4 @@ Previews use deterministic demo data and show their intended state without requi
 
 Registered variants such as error, empty, modal, and drawer states must appear as rendered previews beside their parent, labeled with the parent step and state. They do not add journey steps or alter `screenIds`. Standalone utility screens appear in their own visual group. Derive membership, labels, order, links, and counts from the existing registry; do not create a parallel catalog.
 
-The starter `PrototypeHome.tsx` uses a textual `ScreenRow` list. When product screens are built, replace that presentation with a reusable preview gallery while preserving the registry, routes, Prototype Flows, and navigation.
+**In this template the gallery is already built.** `PrototypeHome.tsx` renders each card with `ScreenPreview.tsx`: the screen's own route opens in preview mode (`?preview=1`) inside an inert iframe at the screen's intended viewport, scaled to the card. The iframe keeps media queries, `showModal()` dialogs, drawers, and fixed elements inside the preview, and preview mode hides the flow bar. Do not replace the gallery or build a second one. To change the preview size, set `previewViewport` on the registry (whole prototype) or on one screen. If a preview looks wrong, fix the screen so it renders its intended state on direct load (see `02-lofi-prototype-rules.md`, Content).
