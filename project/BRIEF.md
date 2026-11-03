@@ -11,6 +11,7 @@
 | Category | TBD |
 | Devices & breakpoints | TBD |
 | Fidelity | TBD <!-- Lo-fi / Lo-fi+ / Mid-fi (Memorisely) --> |
+| Accent color | TBD <!-- Lo-fi+ only; default violet-600 --> |
 | Dark mode | TBD <!-- Mid-fi only; default No --> |
 | Navigation | TBD |
 | UI language | TBD |
@@ -20,7 +21,8 @@
 
 - **Product name:** TBD <!-- used for README.md, metadata.json, index.html title, and registry.name -->
 - **Pitch:** TBD
-- **Prototype purpose:** TBD <!-- what the prototype must validate or communicate -->
+- **Prototype purpose:** TBD <!-- what the prototype must validate or communicate (question 16) -->
+- **Audience:** TBD <!-- who reviews it: client, internal team, investors, test users (question 16) -->
 - **Key content per screen:** TBD
 - **Key interactions:** TBD
 

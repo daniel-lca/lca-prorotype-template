@@ -84,7 +84,7 @@ Equivalent things should behave equivalently.
 
 Examples:
 
-- every `Open Flow` action behaves the same way
+- every `Open flow` action behaves the same way
 - every screen link opens the exact selected screen
 - every user-type section uses the same structure
 - every flow card uses the same information hierarchy
@@ -138,7 +138,7 @@ Avoid ambiguous labels such as:
 
 Use specific labels when they improve understanding.
 
-For the prototype hub, consistent labels such as `Open Flow` and `Open Screen` are acceptable because their object is explicit.
+For the prototype hub, consistent labels such as `Open flow` and `Open screen` are acceptable because their object is explicit.
 
 ---
 
@@ -214,6 +214,6 @@ Every UI element should have a clear reason to exist.
 
 Show actual rendered interfaces side by side in a responsive grid inside each flow group; textual lists alone are insufficient. Keep step number and screen name above every preview, use consistent alignment and spacing, and place routes or technical metadata secondarily.
 
-Previews must stay large enough to recognize and compare adjacent interfaces. Use fewer columns for wide desktop screens instead of unreadable thumbnails, preserve the intended viewport and aspect ratio, and provide an `Open Screen` link for long screens. Modal, drawer, and error variants must visibly show their intended state inside their own preview rather than covering Prototype Home.
+Previews must stay large enough to recognize and compare adjacent interfaces. Use fewer columns for wide desktop screens instead of unreadable thumbnails, preserve the intended viewport and aspect ratio, and provide an `Open screen` link for long screens. Modal, drawer, and error variants must visibly show their intended state inside their own preview rather than covering Prototype Home.
 
 Keep preview internals inert, including keyboard focus, while the external open-screen link remains accessible. At desktop widths verify multiple previews are visible together; at mobile widths verify labels and links remain usable without page-level horizontal overflow.

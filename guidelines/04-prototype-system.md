@@ -24,7 +24,7 @@ The prototype is therefore both:
 
 Every project must have a Prototype Home page.
 
-The exact visual design may adapt to the project's design language, but the information architecture must contain the following areas.
+The information architecture must contain the following areas. In this template Prototype Home is tooling: it stays grayscale at every fidelity and does not adopt the product's design language (`02-lofi-prototype-rules.md`, "Prototype tooling").
 
 ### A. Prototype Flows
 
@@ -42,9 +42,9 @@ Recommended content:
 - number of steps/screens
 - ordered step names or a concise flow preview
 - status when useful
-- `Open Flow` action
+- `Open flow` action
 
-`Open Flow` must open the defined first screen of that flow.
+`Open flow` must open the defined first screen of that flow.
 
 A flow must never point to an arbitrary screen simply because that route currently exists.
 
@@ -63,7 +63,7 @@ Each flow group should include:
 - ordered screens
 - step numbers when the flow is sequential
 - direct link to each screen
-- direct `Open Flow` action when useful
+- direct `Open flow` action when useful
 
 This section is the exhaustive prototype inventory.
 
@@ -180,7 +180,7 @@ Screens should be grouped by what the user is trying to accomplish.
 
 Every flow must have an explicit starting screen.
 
-When `Open Flow` is triggered:
+When `Open flow` is triggered:
 
 1. open the defined start screen
 2. preserve the correct user context
@@ -277,11 +277,11 @@ A prototype task is complete only when:
 
 All Prototype Screens must be a complete visual gallery of rendered prototype interfaces, shown side by side within each flow. A text list, table, route directory, or cards containing only names and descriptions does not satisfy this requirement.
 
-Render every preview from the same registered React component used by its interactive route. Do not create separately maintained mock screens, hand-built thumbnails, static screenshots, or generic placeholders in place of the interface. Each preview has the step number and screen name above it, plus an explicit, accessible `Open Screen` link.
+Render every preview from the same registered React component used by its interactive route. Do not create separately maintained mock screens, hand-built thumbnails, static screenshots, or generic placeholders in place of the interface. Each preview has the step number and screen name above it, plus an explicit, accessible `Open screen` link.
 
 Group previews by user type and flow and arrange them in a responsive grid: show multiple screens side by side on desktop and reduce columns on narrow viewports while preserving legibility. Keep the intended viewport and aspect ratio when scaling. Do not force a desktop interface to reflow as mobile just to fit a gallery cell. Exclude FlowBar and Prototype Home tooling from previews, while preserving product styling inside them.
 
-Previews use deterministic demo data and show their intended state without requiring earlier steps. They are static for review: viewing or mounting them must not navigate, submit forms, mutate shared product state, or make external requests. Their embedded controls must be inert and excluded from keyboard focus; the external `Open Screen` link opens the interactive version.
+Previews use deterministic demo data and show their intended state without requiring earlier steps. They are static for review: viewing or mounting them must not navigate, submit forms, mutate shared product state, or make external requests. Their embedded controls must be inert and excluded from keyboard focus; the external `Open screen` link opens the interactive version.
 
 Registered variants such as error, empty, modal, and drawer states must appear as rendered previews beside their parent, labeled with the parent step and state. They do not add journey steps or alter `screenIds`. Standalone utility screens appear in their own visual group. Derive membership, labels, order, links, and counts from the existing registry; do not create a parallel catalog.
 

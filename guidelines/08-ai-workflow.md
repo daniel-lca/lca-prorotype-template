@@ -128,7 +128,7 @@ Confirm the registry correctly drives:
 - correct description
 - correct step count
 - correct order
-- correct `Open Flow`
+- correct `Open flow`
 
 ### All Prototype Screens
 - correct user group
@@ -210,6 +210,6 @@ Do not claim completion if integrity issues remain.
 
 Before completion, verify that All Prototype Screens shows actual registered screen components as a side-by-side preview gallery, not a text-only list. Confirm that variants appear next to their parent without adding journey steps, and that standalone screens appear in their own visual group.
 
-Check that each preview matches its direct route and intended state, uses deterministic data, cannot mutate state or navigate while previewed, keeps embedded controls out of the keyboard order, and provides an accessible external `Open Screen` link. Check that modal and drawer states remain contained, tooling bars are excluded, and product styling is preserved. Visually inspect the gallery at desktop and mobile widths for legible previews, multiple side-by-side desktop screens, and no page-level horizontal overflow.
+Check that each preview matches its direct route and intended state, uses deterministic data, cannot mutate state or navigate while previewed, keeps embedded controls out of the keyboard order, and provides an accessible external `Open screen` link. Check that modal and drawer states remain contained, tooling bars are excluded, and product styling is preserved. Visually inspect the gallery at desktop and mobile widths for legible previews, multiple side-by-side desktop screens, and no page-level horizontal overflow.
 
 The template's gallery (`ScreenPreview.tsx`) already meets these rules. Do not replace it with a text-only list, placeholder gallery, or static screenshot gallery. If a preview is blank or shows the wrong state, fix the screen so it renders its intended state on direct load.

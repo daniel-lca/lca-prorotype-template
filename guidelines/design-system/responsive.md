@@ -460,7 +460,7 @@ Mobile      Fields stack vertically
 Example:
 
 ```html
-<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+<div class="grid grid-cols-1 gap-5 md:grid-cols-2">
 ```
 
 Inputs should generally occupy the available mobile width.
