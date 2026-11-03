@@ -31,9 +31,12 @@ does not exist before checking.
 2. Run the intake as a conversation, **one phase at a time**. Wait for answers before moving on.
 3. When intake is done, write the answers into `project/BRIEF.md` (replace the placeholders),
    show the user a short summary, and ask for a "go" before building.
-4. After the brief is confirmed, build flow by flow, following the guidelines. After each batch of screens,
+4. After the user says "go", run **project setup** once, before you build any screen. Follow
+   "After the go: project setup" in `guidelines/01-intake-questions.md`. It replaces this template's
+   `README.md` with a README for the product, and renames the app, page title, and registry.
+5. Then build flow by flow, following the guidelines. After each batch of screens,
    tell the user what you built and what is next.
-5. If a request conflicts with the guidelines, point out the conflict and ask which one wins.
+6. If a request conflicts with the guidelines, point out the conflict and ask which one wins.
    The user's explicit answer overrides the guidelines. Record the exception in `project/BRIEF.md`
    under "Decisions & exceptions".
 

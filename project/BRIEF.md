@@ -18,6 +18,7 @@
 
 ## Product (Phase 2)
 
+- **Product name:** TBD <!-- used for README.md, metadata.json, index.html title, and registry.name -->
 - **Pitch:** TBD
 - **Prototype purpose:** TBD <!-- what the prototype must validate or communicate -->
 - **Key content per screen:** TBD

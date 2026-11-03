@@ -37,7 +37,8 @@ Ask these **phase by phase**. For each phase:
 
 ## Phase 2 — The product
 
-7. **One-sentence pitch**: what is it and who is it for?
+7. **Name and one-sentence pitch**: what is the product called, what is it, and who is it for?
+   A working name is fine. The name is used for the project README, the app name, and the page title.
 8. **Primary users / roles**: list each role and what they come to do. (e.g. "Admin — manages users", "Customer — books appointments")
    Each role becomes a **user type** in the prototype registry, so every flow belongs to exactly one.
 9. **Core flows** (the 1–3 journeys the prototype must demonstrate end to end), and which role does each.
@@ -65,3 +66,62 @@ Ask these **phase by phase**. For each phase:
 2. Fill `project/BRIEF.md` with every answer, marking assumptions as `(assumed)`. Anything still undecided
    goes under "Open questions" instead of being invented.
 3. Show a summary of 10 lines or fewer and ask: **"Build it? (go / change something)"**.
+
+---
+
+## After the go: project setup
+
+Do this once, after the user says "go" and before you build the first screen.
+The template files describe the template, not the product. The project repository must describe this prototype.
+
+1. Replace `README.md` completely with the structure below. Do not keep any text from the template README.
+2. In `src/prototype/registry.ts`, set `name` to the product name.
+3. In `metadata.json`, set `name` to "<Product name> prototype".
+   Set `description` to the pitch, followed by "Read AGENTS.md before making changes."
+4. In `index.html`, set `<title>` to "<Product name> prototype".
+5. In `package.json`, set `name` to the product name in kebab-case, for example `acme-booking-prototype`.
+6. Tell the user in one line that setup is done, then start the first flow.
+
+README structure (replace every `<…>` with values from `project/BRIEF.md`):
+
+````markdown
+# <Product name> prototype
+
+<One-sentence pitch.>
+
+- **Purpose:** <what the prototype must validate or communicate>
+- **Fidelity:** <Lo-fi / Lo-fi+ / Mid-fi (Memorisely)>
+- **Devices:** <devices and breakpoints>
+- **Live prototype:** <Vercel URL, or "Add the Vercel URL after the first deploy.">
+
+## How to review
+
+Open Prototype Home at `/`. It lists every user type, flow, and screen.
+Select `Open flow` to start a journey. Use the bar at the top of each screen to move between steps.
+
+## Where things are
+
+| Path | Purpose |
+|---|---|
+| `project/BRIEF.md` | The confirmed brief: the product source of truth |
+| `src/prototype/registry.ts` | Every user type, flow, screen, and route |
+| `src/screens/` | One file per screen |
+| `AGENTS.md`, `guidelines/` | Rules for the AI builder |
+
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+---
+
+Built from the LCA prototype template.
+````
+
+README rules:
+
+- Do not list flows or screens in the README. Prototype Home shows them from the registry.
+- Write the README in English unless the user asks for another language.
+- If the product name, pitch, purpose, fidelity, or devices change later, update `README.md` in the same task.
