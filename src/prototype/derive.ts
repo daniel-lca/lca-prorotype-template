@@ -1,9 +1,14 @@
 import { registry } from './registry';
-import type { Flow, Screen, UserType } from './types';
+import type { Flow, Screen, UserType, Viewport } from './types';
 
 // Read-only views over the registry. Counts, step numbers, and grouping are always computed, never stored.
 
 const byOrder = <T extends { order: number }>(a: T, b: T) => a.order - b.order;
+
+export const DEFAULT_PREVIEW_VIEWPORT: Viewport = { width: 1440, height: 900 };
+
+/** Query parameter that keeps the current flow when a shared screen is opened from a flow that does not own it. */
+export const FLOW_PARAM = 'flow';
 
 export const screenById = (id: string) => registry.screens.find((s) => s.id === id);
 export const flowById = (id: string) => registry.flows.find((f) => f.id === id);
@@ -32,16 +37,48 @@ export function shortcuts() {
   return [...registry.shortcuts].sort(byOrder);
 }
 
-export function flowStartRoute(flow: Flow): string | undefined {
-  return screenById(flow.startScreenId)?.route;
+/** Journey screens and standalone screens. Variants are counted separately as states. */
+export function counts() {
+  const states = registry.screens.filter((s) => s.parentScreenId).length;
+  return { userTypes: registry.userTypes.length, flows: registry.flows.length, screens: registry.screens.length - states, states };
 }
 
-/** Where a screen sits in its own flow. Variants report their parent's step. */
-export function stepInfo(screen: Screen) {
-  const flow = screen.flowId ? flowById(screen.flowId) : undefined;
+export function previewViewport(screen: Screen): Viewport {
+  return screen.previewViewport ?? registry.previewViewport ?? DEFAULT_PREVIEW_VIEWPORT;
+}
+
+/** The screen that holds the step position: the screen itself, or the parent of a variant. */
+const anchorId = (screen: Screen) => screen.parentScreenId ?? screen.id;
+
+/**
+ * The flow a screen is being viewed in. A shared screen keeps the flow named in ?flow= when that flow lists it;
+ * otherwise the screen's own flow is used.
+ */
+export function contextFlow(screen: Screen, flowParam?: string | null): Flow | undefined {
+  if (flowParam) {
+    const flow = flowById(flowParam);
+    if (flow?.screenIds.includes(anchorId(screen))) return flow;
+  }
+  return screen.flowId ? flowById(screen.flowId) : undefined;
+}
+
+/** Route to open `target` without losing the current flow. Adds ?flow= only when the flow does not own the target. */
+export function hrefFor(target: Screen, flow?: Flow): string {
+  if (flow && flow.id !== target.flowId && flow.screenIds.includes(anchorId(target))) {
+    return `${target.route}?${FLOW_PARAM}=${encodeURIComponent(flow.id)}`;
+  }
+  return target.route;
+}
+
+export function flowStartHref(flow: Flow): string | undefined {
+  const start = screenById(flow.startScreenId);
+  return start && hrefFor(start, flow);
+}
+
+/** Where a screen sits in a flow (its own flow by default). Variants report their parent's step. */
+export function stepInfo(screen: Screen, flow: Flow | undefined = contextFlow(screen)) {
   if (!flow) return undefined;
-  const anchorId = screen.parentScreenId ?? screen.id;
-  const index = flow.screenIds.indexOf(anchorId);
+  const index = flow.screenIds.indexOf(anchorId(screen));
   const prev = index > 0 ? screenById(flow.screenIds[index - 1]) : undefined;
   const next = index >= 0 && index < flow.screenIds.length - 1 ? screenById(flow.screenIds[index + 1]) : undefined;
   return { flow, step: index + 1, total: flow.screenIds.length, prev, next };

@@ -20,7 +20,8 @@ export function validateRegistry(r: Registry = registry): string[] {
   for (const id of duplicates(r.userTypes.map((u) => u.id))) issues.push(`Duplicate user type ID "${id}"`);
   for (const id of duplicates(r.flows.map((f) => f.id))) issues.push(`Duplicate flow ID "${id}"`);
   for (const id of duplicates(r.screens.map((s) => s.id))) issues.push(`Duplicate screen ID "${id}"`);
-  for (const route of duplicates(r.screens.map((s) => s.route))) issues.push(`Duplicate route "${route}"`);
+  const normalizeRoute = (route: string) => route.toLowerCase().replace(/\/+$/, '');
+  for (const route of duplicates(r.screens.map((s) => normalizeRoute(s.route)))) issues.push(`Duplicate route "${route}"`);
   for (const id of duplicates(r.shortcuts.map((s) => s.id))) issues.push(`Duplicate shortcut ID "${id}"`);
 
   for (const flow of r.flows) {
@@ -38,6 +39,8 @@ export function validateRegistry(r: Registry = registry): string[] {
 
   for (const screen of r.screens) {
     if (!screen.route.startsWith('/') || screen.route === '/') issues.push(`Screen "${screen.id}" has invalid route "${screen.route}"`);
+    if (/^\/flow(\/|$)/.test(screen.route)) issues.push(`Screen "${screen.id}" route "${screen.route}" uses /flow/, which is reserved for Open flow links`);
+    if (/[?#:*]/.test(screen.route)) issues.push(`Screen "${screen.id}" route "${screen.route}" must be a plain path (no ?, #, :param, or *)`);
     if (screen.standalone) {
       if (screen.flowId) issues.push(`Screen "${screen.id}" is standalone but also has flowId "${screen.flowId}"`);
       continue;
@@ -68,9 +71,14 @@ export function validateRegistry(r: Registry = registry): string[] {
   const registered = new Set<unknown>(r.screens.map((s) => s.component));
   for (const [path, mod] of Object.entries(screenModules)) {
     if (!Object.values(mod).some((exported) => registered.has(exported))) {
-      issues.push(`${path.replace('../', 'src/')} is not registered in src/prototype/registry.ts`);
+      issues.push(
+        `${path.replace('../', 'src/')} is not registered in src/prototype/registry.ts (shared parts belong in src/components/, mock data in src/data/)`,
+      );
     }
   }
 
   return issues;
 }
+
+/** The registry is static, so it is checked once per page load. */
+export const registryIssues = validateRegistry();
