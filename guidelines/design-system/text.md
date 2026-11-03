@@ -44,6 +44,10 @@ Use primarily:
 --font-semibold: 600;
 ```
 
+**In this template:** do not add these variables to `src/index.css`. In Tailwind v4, `--font-*` names a font
+family, so `--font-medium` turns the `font-medium` utility into a font-family and drops the weight. The built-in
+utilities already have these values: `font-normal` (400), `font-medium` (500), `font-semibold` (600).
+
 ### Regular · 400
 
 Use Regular for:
@@ -729,6 +733,11 @@ For marketing pages, use the responsive patterns in [responsive.md](responsive.m
      --text-page-title--letter-spacing: -0.02em;
      --text-page-title--font-weight: 500;
 
+     --text-page-title-sm: 1.75rem;
+     --text-page-title-sm--line-height: 1.25;
+     --text-page-title-sm--letter-spacing: -0.02em;
+     --text-page-title-sm--font-weight: 500;
+
      --text-heading-1: 1.5rem;
      --text-heading-1--line-height: 1.3;
      --text-heading-1--letter-spacing: -0.015em;
@@ -756,6 +765,9 @@ For marketing pages, use the responsive patterns in [responsive.md](responsive.m
 
 3. Use the tokens as utilities: `text-page-title`, `text-heading-1`, `text-body`, `text-small`. Do not repeat
    arbitrary values such as `text-[32px]` in screens.
+   Only the page title changes on mobile (32px to 28px, [responsive.md](responsive.md) §8):
+   `text-page-title-sm md:text-page-title`. The other product tokens stay the same at every breakpoint.
+   Do not add `--font-<weight>` variables (see §2).
 4. If the prototype has marketing pages, add the marketing styles from the scale above the same way
    (`--text-display`, `--text-marketing-h1`, …) and combine them with responsive prefixes.
 
