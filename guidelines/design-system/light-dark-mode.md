@@ -2,8 +2,25 @@
 
 > A practical theming system for designing intentional light and dark interfaces with AI. Built around the Memorisely Slate, Violet and feedback palettes with shared semantic roles across both themes.
 
-> **When this applies:** only when the brief Fidelity is **Mid-fi (Memorisely)** AND the brief asks for dark mode. Otherwise build light mode only.
+> **When this applies:** only when the brief Fidelity is **Mid-fi (Memorisely)** AND the brief asks for dark mode. Otherwise build light mode only (the light values are already active in `src/styles/memorisely.css`).
 > Stack translations (shadcn/ui, Radix, Lucide, Sonner) and precedence rules: see [README.md](README.md).
+
+> **In this template:**
+> - The light and dark values below are already implemented in `src/styles/memorisely.css`. Do not copy them.
+>   Two dark values differ on purpose: primary and destructive use the 600 shade, so white labels pass WCAG AA.
+> - Dark mode is class-based. Put the `dark` class on the **product shell**, not on `<html>`, so Prototype Home and
+>   the flow bar stay light. Every semantic utility inside the shell switches automatically; use `dark:` only for
+>   exceptions.
+> - Use `useTheme()` from `src/styles/theme.ts`. It stores Light / Dark / System in localStorage
+>   (`prototype-theme`) and reads it before the first render, so there is no flash:
+>
+>   ```tsx
+>   const { themeClass, choice, setChoice } = useTheme();
+>   <div className={`${themeClass} min-h-[calc(100dvh-var(--prototype-bar-height,0px))] bg-background text-foreground`}>
+>   ```
+>
+>   Put the Light / Dark / System switcher where the brief says (usually settings or the account menu), and call
+>   `setChoice('light' | 'dark' | 'system')`.
 
 ## Purpose
 
@@ -252,7 +269,7 @@ Use:
 --popover: #0f172a;              /* Slate 900 */
 --popover-foreground: #f1f5f9;   /* Slate 100 */
 
---primary: #8b5cf6;              /* Violet 500 */
+--primary: #7c3aed;              /* Violet 600 (Violet 500 fails AA with white text) */
 --primary-foreground: #ffffff;
 
 --secondary: #1e293b;            /* Slate 800 */
@@ -268,7 +285,7 @@ Use:
 --input: #334155;                /* Slate 700 */
 --ring: #a78bfa;                 /* Violet 400 */
 
---destructive: #ef4444;          /* Red 500 */
+--destructive: #dc2626;          /* Red 600 (Red 500 fails AA with white text) */
 --destructive-foreground: #ffffff;
 ```
 
@@ -468,7 +485,8 @@ Avoid flashes of the wrong theme during page load.
 
 Persist explicit user choice when appropriate.
 
-Use the project's established theme implementation rather than creating another theme mechanism.
+Use the project's established theme implementation rather than creating another theme mechanism. In this
+template that is `useTheme()` in `src/styles/theme.ts`.
 
 ---
 

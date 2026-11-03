@@ -244,10 +244,18 @@ Common examples:
 Provide an accessible label.
 
 ```tsx
-<Button size="icon" variant="ghost" aria-label="Close">
-  <X className="size-4" />
-</Button>
+import { X } from 'lucide-react';
+
+<button
+  type="button"
+  aria-label="Close"
+  className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+>
+  <X className="size-4" aria-hidden />
+</button>
 ```
+
+This template has no `Button` component library; use a native `<button>` (see [README.md](README.md) "Stack translations").
 
 If an action may be ambiguous, use an icon with a text label instead.
 

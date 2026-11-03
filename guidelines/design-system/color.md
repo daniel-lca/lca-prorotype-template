@@ -5,6 +5,12 @@
 > **When this applies:** only when the brief Fidelity is **Mid-fi (Memorisely)**. Ignore this file for Lo-fi and Lo-fi+ prototypes.
 > Stack translations (shadcn/ui, Radix, Lucide, Sonner) and precedence rules: see [README.md](README.md).
 
+> **In this template:** every token below is already implemented in `src/styles/memorisely.css` (light and dark
+> values, written as Tailwind palette variables). Turn it on with the "Mid-fi setup" steps in [README.md](README.md),
+> then use the semantic utilities (`bg-background`, `text-foreground`, `bg-primary`, `border-border`…). Do not copy
+> the CSS blocks in this file into the project, and do not create other color variables. Use palette utilities
+> (`bg-slate-100`, `text-violet-700`) only where no semantic role fits.
+
 ## Purpose
 
 Use color to communicate hierarchy, meaning, state and interaction.
@@ -345,7 +351,8 @@ Never rely on color alone to communicate important status.
 
 Borders should provide structure without dominating the interface.
 
-Use `border` as the default structural border color.
+Use `border` as the default structural border color. In Tailwind v4 that means `border border-border` (or
+`border-input` for form controls); a bare `border` class takes the text color.
 
 Use borders for:
 
@@ -426,6 +433,9 @@ A typical structure may use:
 - Stronger colors reserved for actions and states
 
 Pure white is valid where appropriate, but do not use multiple near-identical whites without a clear purpose.
+
+In this template the page background (`bg-background`) is white, as in [light-dark-mode.md](light-dark-mode.md).
+Create surface hierarchy with `bg-muted` areas and `border-border`, not with extra near-white colors.
 
 Avoid excessive shadows as a substitute for surface hierarchy.
 
@@ -557,7 +567,7 @@ Reuse the existing system when one exists.
 
 Do not introduce a parallel palette because a slightly different color looks better on one screen.
 
-When using shadcn/ui, prefer updating shared semantic variables and component variants rather than repeatedly overriding colors at individual instances.
+Prefer updating the shared semantic variables in `src/styles/memorisely.css` and shared components in `src/components/` rather than repeatedly overriding colors at individual instances.
 
 ---
 

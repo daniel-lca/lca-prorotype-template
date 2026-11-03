@@ -32,6 +32,18 @@ Use the following radius scale:
 --radius-full: 9999px;
 ```
 
+**In this template:** these are Tailwind v4's default radius values, so add no radius variables. Use:
+
+| Use | Value | Tailwind |
+|---|---|---|
+| Tiny details | 2px | `rounded-xs` |
+| Compact elements, badges | 4px | `rounded-sm` |
+| Buttons, inputs, icon buttons | 6px | `rounded-md` |
+| Cards, popovers, menus | 8px | `rounded-lg` |
+| Dialogs, sheets, large surfaces | 12px | `rounded-xl` |
+| Marketing surfaces | 16px | `rounded-2xl` |
+| Avatars, pills | 9999px | `rounded-full` |
+
 Use `6px` and `8px` for most product interface components.
 
 Use larger values intentionally rather than as the default.
@@ -550,15 +562,10 @@ Before applying radius, inspect the project for:
 
 Reuse the established radius system where appropriate.
 
-When using shadcn/ui, prefer changing shared radius variables and component variants rather than overriding individual component instances repeatedly.
+Prefer changing shared components in `src/components/` rather than overriding individual component instances repeatedly.
 
-A typical shared base can be expressed as:
-
-```css
---radius: 0.5rem;
-```
-
-Then derive related component radii consistently.
+In this template, do not add `--radius` or `--radius-*` variables. In Tailwind v4 they replace the built-in
+scale (a `--radius` variable changes every bare `rounded`). Use the utilities in the §1 table.
 
 Do not introduce a second radius system into an established interface.
 

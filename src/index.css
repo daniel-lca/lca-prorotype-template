@@ -1,5 +1,13 @@
 @import 'tailwindcss';
+/* Mid-fi (Memorisely) only: uncomment the next line during project setup. Lo-fi and Lo-fi+ leave it commented. */
+/* @import './styles/memorisely.css'; */
 
+/* Class names in the docs are examples, not product UI: do not compile them. */
+@source not '../guidelines';
+@source not '../project';
+
+/* Prototype Home and the flow bar use this neutral base. In Mid-fi, the product shell paints its own
+   background with bg-background text-foreground. */
 body {
   @apply bg-neutral-50 text-neutral-900 antialiased;
 }

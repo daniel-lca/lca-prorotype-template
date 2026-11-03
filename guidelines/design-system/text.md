@@ -721,55 +721,29 @@ For marketing pages, use the responsive patterns in [responsive.md](responsive.m
    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
    ```
 
-2. Add the font and the product scale as tokens in the `@theme` block of `src/index.css`. Each token sets size,
-   line height, letter spacing and weight together, so `text-heading-1` is the whole style:
+2. Turn on `src/styles/memorisely.css` ([README.md](README.md) "Mid-fi setup"). It already sets `--font-sans` to
+   Inter and defines the product scale. Each token sets size, line height, letter spacing and weight together, so
+   `text-heading-1` is the whole style:
 
-   ```css
-   @theme {
-     --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-
-     --text-page-title: 2rem;
-     --text-page-title--line-height: 1.25;
-     --text-page-title--letter-spacing: -0.02em;
-     --text-page-title--font-weight: 500;
-
-     --text-page-title-sm: 1.75rem;
-     --text-page-title-sm--line-height: 1.25;
-     --text-page-title-sm--letter-spacing: -0.02em;
-     --text-page-title-sm--font-weight: 500;
-
-     --text-heading-1: 1.5rem;
-     --text-heading-1--line-height: 1.3;
-     --text-heading-1--letter-spacing: -0.015em;
-     --text-heading-1--font-weight: 500;
-
-     --text-heading-2: 1.25rem;
-     --text-heading-2--line-height: 1.4;
-     --text-heading-2--letter-spacing: -0.01em;
-     --text-heading-2--font-weight: 500;
-
-     --text-heading-3: 1rem;
-     --text-heading-3--line-height: 1.5;
-     --text-heading-3--font-weight: 500;
-
-     --text-body: 0.875rem;
-     --text-body--line-height: 1.5;
-
-     --text-body-lg: 1rem;
-     --text-body-lg--line-height: 1.5;
-
-     --text-small: 0.75rem;
-     --text-small--line-height: 1.4;
-   }
-   ```
+   | Product style | Utility | Size / line height / tracking / weight |
+   |---|---|---|
+   | Page title | `text-page-title` | 32px / 1.25 / -0.02em / 500 |
+   | Page title (mobile) | `text-page-title-sm` | 28px / 1.25 / -0.02em / 500 |
+   | Heading 1 | `text-heading-1` | 24px / 1.3 / -0.015em / 500 |
+   | Heading 2 | `text-heading-2` | 20px / 1.4 / -0.01em / 500 |
+   | Heading 3 | `text-heading-3` | 16px / 1.5 / normal / 500 |
+   | Body | `text-body` | 14px / 1.5 |
+   | Body large | `text-body-lg` | 16px / 1.5 |
+   | Small | `text-small` | 12px / 1.4 |
 
 3. Use the tokens as utilities: `text-page-title`, `text-heading-1`, `text-body`, `text-small`. Do not repeat
    arbitrary values such as `text-[32px]` in screens.
    Only the page title changes on mobile (32px to 28px, [responsive.md](responsive.md) §8):
    `text-page-title-sm md:text-page-title`. The other product tokens stay the same at every breakpoint.
    Do not add `--font-<weight>` variables (see §2).
-4. If the prototype has marketing pages, add the marketing styles from the scale above the same way
-   (`--text-display`, `--text-marketing-h1`, …) and combine them with responsive prefixes.
+4. If the prototype has marketing pages, add the marketing styles from the scale above to the `@theme` block in
+   `src/styles/memorisely.css` the same way (`--text-display`, `--text-marketing-h1`, …) and combine them with
+   responsive prefixes.
 
 ---
 
