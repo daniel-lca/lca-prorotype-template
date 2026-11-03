@@ -1,0 +1,25 @@
+/*
+ * Prototype tooling theme: Prototype Home and the flow bar use the LowCode Agency (LOW / CODE) brand at every
+ * fidelity, so they read as the agency's review tool, never as part of the product.
+ * Never use lca-* classes in product screens (the design check flags them).
+ * Values: lowcode-brand brand-guidelines. Two text colors are darker than the brand's for WCAG AA on cream:
+ * lca-muted (brand #B5B5B5 is 1.9:1) and lca-purple-text (brand #705CF6 is 4.4:1 for small text).
+ */
+@theme {
+  --color-lca-cream: #faf9f6;
+  --color-lca-white: #ffffff;
+  --color-lca-gray: #f4f4f4;
+  --color-lca-rule: #d9d9d9;
+  --color-lca-muted: #6b6b6b;
+  --color-lca-body: #414141;
+  --color-lca-ink: #282828;
+  --color-lca-purple: #705cf6;
+  --color-lca-purple-text: #5b48e6;
+  --color-lca-purple-dark: #38327c;
+  --color-lca-purple-light: #c5bdfa;
+  --color-lca-purple-pale: rgb(112 92 246 / 0.08);
+  --color-lca-lime: #c5ef48;
+
+  --font-lca: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --ease-lca: cubic-bezier(0.25, 1, 0.5, 1);
+}

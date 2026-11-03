@@ -4,6 +4,9 @@ import type { ComponentType } from 'react';
 
 export type Status = 'planned' | 'draft' | 'in-progress' | 'ready-for-review' | 'approved' | 'deprecated';
 
+/** project/BRIEF.md Fidelity. Decides which design checks run (see src/prototype/designCheck.ts). */
+export type Fidelity = 'lo-fi' | 'lo-fi-plus' | 'mid-fi';
+
 /** Size the screen is designed for. Gallery previews render at this size and scale down. */
 export interface Viewport {
   width: number;
@@ -65,6 +68,10 @@ export interface Shortcut {
 export interface Registry {
   /** Product name shown on Prototype Home. */
   name: string;
+  /** Fidelity from the brief. Set during project setup. */
+  fidelity: Fidelity;
+  /** One-sentence pitch from the brief, shown under the name on Prototype Home. */
+  description?: string;
   /**
    * Viewport the gallery uses for screen previews. Defaults to 1440 × 900.
    * Mobile-only prototypes use { width: 390, height: 844 }.

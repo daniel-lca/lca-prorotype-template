@@ -74,12 +74,21 @@ This is the only non-gray element allowed.
 
 ## Prototype tooling
 
-Prototype Home (`/`) and the flow bar above each screen are tooling, not product. They stay grayscale at every
-fidelity. Do not restyle them to match the product, and do not remove them. Reviewers can hide the flow bar with
-its **Hide** button during a demo.
+Prototype Home (`/`) and the flow bar above each screen are tooling, not product. They use the LowCode Agency
+brand (`src/prototype/tooling.css`) at every fidelity. Do not restyle them to match the product, do not remove them,
+and never use their `lca-*` classes in product screens. Reviewers can hide the flow bar with its **Hide** button
+during a demo.
 
-The flow bar sits above every screen and sets the CSS variable `--prototype-bar-height` (`0px` when hidden).
-Product layouts must leave room for it:
+The flow bar sits above every screen and scrolls away with the page, so product headers can use `sticky top-0`.
+It sets the CSS variable `--prototype-bar-height` (`0px` when hidden). A full-height app shell uses
+`h-[calc(100dvh-var(--prototype-bar-height,0px))]` (or `min-h-[…]`), not `h-screen`, so the page does not scroll by
+the bar's height.
 
-- A full-height app shell uses `h-[calc(100dvh-var(--prototype-bar-height,0px))]` (or `min-h-[…]`), not `h-screen`.
-- A sticky product header uses `sticky top-[var(--prototype-bar-height,0px)]`, not `top-0`.
+## Design check
+
+In development, Prototype Home has a **Design check** section and the flow bar shows a "design issues" badge. They
+list each class in `src/screens/` and `src/components/` that breaks these rules or the design-system rules for
+`registry.fidelity`, with the class to use instead (for example lo-fi colors that are not `neutral-*`, `font-bold`,
+`uppercase` labels, `text-[11px]`). Fix every issue in the screens you build. Do not edit
+`src/prototype/designRules.ts` to hide an issue. If a rule is wrong for this project, ask the user and record the
+exception in `project/BRIEF.md`.

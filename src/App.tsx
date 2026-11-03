@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Link, Navigate, Route, Routes, useParams } from 'react-router-dom';
-import { flowById, flowStartHref } from './prototype/derive';
+import { flowById, flowStartHref, screenLabel } from './prototype/derive';
 import { FlowBar } from './prototype/FlowBar';
 import { CurrentScreenProvider } from './prototype/navigation';
 import { isPreview } from './prototype/preview';
@@ -40,7 +40,7 @@ function NotFound() {
 function ScreenRoute({ screen }: { screen: Screen }) {
   const ScreenComponent = screen.component;
   useEffect(() => {
-    document.title = `${screen.parentScreenId ? `${screen.name} (${screen.variant ?? 'state'})` : screen.name} · ${registry.name}`;
+    document.title = `${screenLabel(screen)} · ${registry.name}`;
   }, [screen]);
   return (
     <CurrentScreenProvider screen={screen}>

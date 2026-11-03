@@ -27,6 +27,8 @@ import type { Registry } from './types';
 
 export const registry: Registry = {
   name: 'Untitled prototype',
+  fidelity: 'lo-fi', // set from project/BRIEF.md during project setup: 'lo-fi' | 'lo-fi-plus' | 'mid-fi'
+  description: '', // the one-sentence pitch from project/BRIEF.md, set during project setup
   userTypes: [],
   flows: [],
   screens: [],

@@ -53,7 +53,8 @@ does not exist before checking.
    show the user a short summary, and ask for a "go" before building.
 4. After the user says "go", run **project setup** once, before you build any screen. Follow
    "After the go: project setup" in `guidelines/01-intake-questions.md`. It replaces this template's
-   `README.md` with a README for the product, and renames the app, page title, and registry.
+   `README.md` with a README for the product, renames the app, page title, and registry, and sets
+   `registry.fidelity` (it decides which design checks run).
 5. Then build flow by flow, following the guidelines. After each batch of screens,
    tell the user what you built and what is next.
 6. If a request conflicts with the guidelines, point out the conflict and ask which one wins.
@@ -73,6 +74,14 @@ the registry. See `guidelines/04-prototype-system.md` section 2B and the visual 
 
 **Screens link to other screens by screen ID**, with `ScreenLink` or `useGoToScreen` from
 `src/prototype/navigation.tsx`. Never write a route string inside a screen.
+
+**The design check enforces the design rules.** In development, Prototype Home lists every class in
+`src/screens/` and `src/components/` that breaks the rules for `registry.fidelity`, with the class to use instead,
+and the flow bar shows a "design issues" badge. Fix every design issue in the screens you build. Do not edit
+`src/prototype/designRules.ts` to make an issue disappear.
+
+**Prototype Home and the flow bar are tooling.** They use the LowCode Agency brand (`src/prototype/tooling.css`) at
+every fidelity. Do not restyle them, and never use `lca-*` classes in product screens.
 
 Never:
 
@@ -114,6 +123,7 @@ Before finishing any prototype task, open Prototype Home (`/`) and confirm:
 
 - the "Registry issues" box is absent (no orphan screens or flows, no duplicate IDs or routes, no mismatched user types),
   and the flow bar on your screens shows no "registry issues" badge
+- the checks line under the stats says "Design check: no issues", and the flow bar shows no "design issues" badge
 - Prototype Flows and All Prototype Screens show the change, with correct order and step numbers, and each new
   screen or variant has a rendered preview that shows its intended state
 - the browser console has no "Unknown screen ID" errors
