@@ -13,6 +13,13 @@ export function setUpPreviewMode() {
   root.dataset.preview = '';
   root.style.overflow = 'hidden';
   root.inert = true;
+  // A modal dialog escapes the inert root and would pull focus into the preview (away from Prototype Home).
+  // Making the dialog inert before it opens leaves nothing to focus; it still renders with its backdrop.
+  const showModal = HTMLDialogElement.prototype.showModal;
+  HTMLDialogElement.prototype.showModal = function (this: HTMLDialogElement) {
+    this.inert = true;
+    showModal.call(this);
+  };
 }
 
 export function previewSrc(route: string) {
