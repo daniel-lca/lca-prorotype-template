@@ -1,30 +1,21 @@
 /*
- * Memorisely design tokens (Mid-fi only) for Tailwind v4.
+ * Mid-fi (Memorisely) theme: values for the semantic tokens, light and dark, plus Inter, the product type scale,
+ * and the standard easing. Values come from guidelines/design-system/color.md and light-dark-mode.md, written as
+ * Tailwind palette variables so tokens and palette utilities (bg-slate-100, text-violet-700) always match.
  *
- * Turn on only when project/BRIEF.md Fidelity is "Mid-fi (Memorisely)":
- *   1. In src/index.css, uncomment  @import './styles/memorisely.css';  (directly under  @import 'tailwindcss';)
- *   2. Set fidelity: 'mid-fi' in src/prototype/registry.ts (Inter is already loaded in index.html).
- * Lo-fi and Lo-fi+ prototypes never import this file.
+ * Turn on only when project/BRIEF.md Fidelity is "Mid-fi (Memorisely)": in src/index.css, import this file instead
+ * of lofi.css, and set fidelity: 'mid-fi' in src/prototype/registry.ts. The utility mapping (bg-primary,
+ * border-border…) and the dark variant live in src/styles/base.css, shared by every fidelity.
  *
- * What it gives you:
- *   - Semantic color utilities: bg-background, text-foreground, bg-card, bg-primary, text-primary-foreground,
- *     bg-muted, text-muted-foreground, bg-accent, border-border, border-input, ring-ring / outline-ring,
- *     bg-destructive, text-success, bg-success-subtle, text-warning-subtle-foreground, …
- *   - Class-based dark mode: put the class "dark" on the product shell (not on <html>), so Prototype Home and the
- *     flow bar stay light. See guidelines/design-system/light-dark-mode.md.
- *   - Inter and the product type scale: text-page-title, text-page-title-sm, text-heading-1/2/3, text-body,
- *     text-body-lg, text-small (guidelines/design-system/text.md).
- *   - ease-standard for transitions (guidelines/design-system/motion.md).
- * Radius and spacing use Tailwind's default scale; do not add --radius or --spacing tokens.
- *
- * Values come from guidelines/design-system/color.md and light-dark-mode.md, written as Tailwind palette
- * variables so tokens and palette utilities (bg-slate-100, text-violet-700) always match.
+ * Dark mode is class-based: put "dark" on the product shell (not on <html>), so Prototype Home and the flow bar
+ * stay as they are. See src/styles/theme.ts and guidelines/design-system/light-dark-mode.md.
+ * Radius and spacing use Tailwind's default scale (it matches Memorisely); do not add --radius-* or --spacing tokens.
  * Change values here, never per component.
  */
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 :root {
+  --radius: 0.5rem;
+
   --background: var(--color-white);
   --foreground: var(--color-slate-900);
   --card: var(--color-white);
@@ -88,40 +79,6 @@
   --info: var(--color-sky-400);
   --info-subtle: var(--color-sky-950);
   --info-subtle-foreground: var(--color-sky-300);
-}
-
-/* Semantic roles as Tailwind colors. "inline" makes each utility read the variable where it is used,
-   so a .dark shell switches every utility inside it. */
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-hover: var(--primary-hover);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-success: var(--success);
-  --color-success-subtle: var(--success-subtle);
-  --color-success-subtle-foreground: var(--success-subtle-foreground);
-  --color-warning: var(--warning);
-  --color-warning-subtle: var(--warning-subtle);
-  --color-warning-subtle-foreground: var(--warning-subtle-foreground);
-  --color-info: var(--info);
-  --color-info-subtle: var(--info-subtle);
-  --color-info-subtle-foreground: var(--info-subtle-foreground);
 }
 
 @theme {

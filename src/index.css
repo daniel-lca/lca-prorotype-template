@@ -1,5 +1,12 @@
 @import 'tailwindcss';
-/* Mid-fi (Memorisely) only: uncomment the next line during project setup. Lo-fi and Lo-fi+ leave it commented. */
+@import 'tw-animate-css';
+@import './styles/shadcn.css';
+@import './styles/base.css';
+
+/* Fidelity theme: exactly ONE of these three imports is active. Project setup sets it from project/BRIEF.md
+   (guidelines/01-intake-questions.md, "After the go"). Lo-fi is the default. */
+@import './styles/lofi.css';
+/* @import './styles/lofi-plus.css'; */
 /* @import './styles/memorisely.css'; */
 
 /* Prototype tooling theme (LowCode Agency brand). Keep this import; never use lca-* classes in screens. */
@@ -8,9 +15,3 @@
 /* Class names in the docs are examples, not product UI: do not compile them. */
 @source not '../guidelines';
 @source not '../project';
-
-/* Lo-fi screens sit on this neutral base. In Mid-fi, the product shell paints its own
-   background with bg-background text-foreground. Prototype Home paints its own background. */
-body {
-  @apply bg-neutral-50 text-neutral-900 antialiased;
-}

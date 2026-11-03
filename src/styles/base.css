@@ -1,0 +1,56 @@
+/*
+ * Shared theme layer for product screens at every fidelity.
+ * - Maps the semantic color variables to Tailwind utilities: bg-background, text-foreground, bg-primary,
+ *   border-border, outline-ring, bg-success-subtle…
+ * - Defines the class-based dark variant (put "dark" on the product shell, see src/styles/theme.ts).
+ * - Sets the base styles the shadcn/ui components in src/components/ui expect.
+ * The values come from exactly one fidelity file imported in src/index.css:
+ * lofi.css (Lo-fi), lofi-plus.css (Lo-fi+), or memorisely.css (Mid-fi).
+ */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* "inline" makes each utility read the variable where it is used, so a .dark shell switches every utility. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-subtle: var(--success-subtle);
+  --color-success-subtle-foreground: var(--success-subtle-foreground);
+  --color-warning: var(--warning);
+  --color-warning-subtle: var(--warning-subtle);
+  --color-warning-subtle-foreground: var(--warning-subtle-foreground);
+  --color-info: var(--info);
+  --color-info-subtle: var(--info-subtle);
+  --color-info-subtle-foreground: var(--info-subtle-foreground);
+
+  /* shadcn/ui headings (font-heading) use the product font. */
+  --font-heading: var(--font-sans);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
