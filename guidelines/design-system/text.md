@@ -713,13 +713,7 @@ For marketing pages, use the responsive patterns in [responsive.md](responsive.m
 
 ### Mid-fi (Memorisely)
 
-1. Load Inter in `index.html`, inside `<head>`:
-
-   ```html
-   <link rel="preconnect" href="https://fonts.googleapis.com" />
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-   ```
+1. Inter is already loaded in `index.html` (the template's tooling uses it too). Do not add another font link.
 
 2. Turn on `src/styles/memorisely.css` ([README.md](README.md) "Mid-fi setup"). It already sets `--font-sans` to
    Inter and defines the product scale. Each token sets size, line height, letter spacing and weight together, so

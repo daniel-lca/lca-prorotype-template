@@ -24,7 +24,7 @@ The prototype is therefore both:
 
 Every project must have a Prototype Home page.
 
-The information architecture must contain the following areas. In this template Prototype Home is tooling: it stays grayscale at every fidelity and does not adopt the product's design language (`02-lofi-prototype-rules.md`, "Prototype tooling").
+The information architecture must contain the following areas. In this template Prototype Home is tooling: it keeps the LowCode Agency brand at every fidelity and does not adopt the product's design language (`02-lofi-prototype-rules.md`, "Prototype tooling").
 
 ### A. Prototype Flows
 
@@ -285,4 +285,4 @@ Previews use deterministic demo data and show their intended state without requi
 
 Registered variants such as error, empty, modal, and drawer states must appear as rendered previews beside their parent, labeled with the parent step and state. They do not add journey steps or alter `screenIds`. Standalone utility screens appear in their own visual group. Derive membership, labels, order, links, and counts from the existing registry; do not create a parallel catalog.
 
-**In this template the gallery is already built.** `PrototypeHome.tsx` renders each card with `ScreenPreview.tsx`: the screen's own route opens in preview mode (`?preview=1`) inside an inert iframe at the screen's intended viewport, scaled to the card. The iframe keeps media queries, `showModal()` dialogs, drawers, and fixed elements inside the preview, and preview mode hides the flow bar. Do not replace the gallery or build a second one. To change the preview size, set `previewViewport` on the registry (whole prototype) or on one screen. If a preview looks wrong, fix the screen so it renders its intended state on direct load (see `02-lofi-prototype-rules.md`, Content).
+**In this template the gallery is already built.** `PrototypeHome.tsx` renders each card with `ScreenPreview.tsx`: the screen's own route opens in preview mode (`?preview=1`) inside an inert iframe at the screen's intended viewport, scaled to the card. The iframe keeps media queries, `showModal()` dialogs, drawers, and fixed elements inside the preview, and preview mode hides the flow bar. Clicking a thumbnail opens the screen, and the `Open screen` link below it stays the accessible way in. Do not replace the gallery or build a second one. To change the preview size, set `previewViewport` on the registry (whole prototype) or on one screen. If a preview looks wrong, fix the screen so it renders its intended state on direct load (see `02-lofi-prototype-rules.md`, Content).

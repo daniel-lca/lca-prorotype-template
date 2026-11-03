@@ -186,6 +186,11 @@ Before considering the task complete, validate:
 - [ ] No orphan flow exists.
 - [ ] No duplicate screen implementation was created unnecessarily.
 
+### Design check
+- [ ] Prototype Home says "Design check: no issues" (development only).
+- [ ] The flow bar on the changed screens shows no "design issues" badge.
+- [ ] No rule in `src/prototype/designRules.ts` was edited to hide an issue.
+
 ---
 
 ## Phase 7 — Completion Report
@@ -201,9 +206,10 @@ Updated
 - Prototype Flows synchronized: yes
 - All Prototype Screens synchronized: yes
 - Integrity issues: none
+- Design check issues: none
 ```
 
-Do not claim completion if integrity issues remain.
+Do not claim completion if integrity issues or design check issues remain.
 
 
 ## Visual gallery verification

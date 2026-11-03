@@ -9,9 +9,9 @@ The repo must keep building with `npm run build` and deploy to **Vercel** with z
 - **Routing**: `react-router-dom` (`BrowserRouter`), already set up. Routes are generated in `src/App.tsx` from
   `src/prototype/registry.ts`; register a screen there instead of adding a `<Route>` by hand.
   `vercel.json` already rewrites all paths to `index.html`, so deep links work.
-- No other dependencies without a reason written in `project/BRIEF.md`. Pre-approved exceptions when the brief
-  Fidelity is Mid-fi (Memorisely): `lucide-react`, and the Inter font loaded from Google Fonts in `index.html`
-  (see `guidelines/design-system/text.md`).
+- No other dependencies without a reason written in `project/BRIEF.md`. The pre-approved exception when the brief
+  Fidelity is Mid-fi (Memorisely): `lucide-react`. Inter is already loaded from Google Fonts in `index.html`
+  (the tooling uses it; Mid-fi screens use it through `memorisely.css`).
 - No shadcn/ui, Radix, or animation libraries. `guidelines/design-system/README.md` maps them to native HTML.
 
 ## Folder structure
@@ -20,7 +20,7 @@ The repo must keep building with `npm run build` and deploy to **Vercel** with z
 src/
   main.tsx            # entry, do not rename
   App.tsx             # router, generated from the registry (rarely edited)
-  index.css           # Tailwind import, base styles; Mid-fi uncomments the memorisely.css import
+  index.css           # Tailwind import, tooling theme import, base styles; Mid-fi uncomments the memorisely.css import
   styles/
     memorisely.css    # Mid-fi tokens for Tailwind v4: colors (light + dark), Inter, type scale, easing
     theme.ts          # useTheme(): Light / Dark / System for Mid-fi prototypes with dark mode
@@ -34,6 +34,9 @@ src/
     ScreenPreview.tsx # one gallery preview: the real screen in an inert, scaled iframe
     preview.ts        # preview mode (?preview=1) used by the gallery iframes
     FlowBar.tsx       # flow navigation above each screen
+    designCheck.ts    # development-only design check (loads screen source, shows issues)
+    designRules.ts    # the design check rules; do not edit them to hide an issue
+    tooling.css       # LowCode Agency brand tokens (lca-*) for Prototype Home and the flow bar only
   components/         # shared UI: Placeholder, Note, PhoneFrame, app shell/nav, buttons…
   screens/            # one file per screen: DashboardScreen.tsx… every file here must be registered
                       # (shared parts go in components/, mock data in data/)
@@ -49,6 +52,8 @@ project/
 - Keep `package.json` scripts `dev`, `build`, `preview` working.
 - Do not commit secrets. If an AI feature is requested, read the key from an environment variable
   and document it in `project/BRIEF.md`.
+- Files uploaded in AI Studio (PRDs, briefs, screenshots) land in `public/assets/aistudio/`. `vite.config.ts` removes
+  that folder from the build, so uploads are never published. Do not reference those files from screens.
 
 ## Deploy
 

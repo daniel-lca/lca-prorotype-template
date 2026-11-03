@@ -1,7 +1,8 @@
 # Kickoff prompt
 
-Paste this as the **first message** in AI Studio Build after importing the repo. If you have a PRD or product
-brief, paste it below the prompt in the same message.
+**Usually not needed.** AI Studio reads `AGENTS.md` on import and starts the intake on its own. Use this only if it
+does not: paste it as the first message in AI Studio Build. If you have a PRD or product brief, paste or upload it
+in the same message.
 
 ---
 

@@ -99,15 +99,17 @@ Do this once, after the user says "go" and before you build the first screen.
 The template files describe the template, not the product. The project repository must describe this prototype.
 
 1. Replace `README.md` completely with the structure below. Do not keep any text from the template README.
-2. In `src/prototype/registry.ts`, set `name` to the product name.
+2. In `src/prototype/registry.ts`, set `name` to the product name, `description` to the one-sentence pitch, and
+   `fidelity` to `'lo-fi'`, `'lo-fi-plus'`, or `'mid-fi'` from the brief.
 3. In `metadata.json`, set `name` to "<Product name> prototype".
    Set `description` to the pitch, followed by "Read AGENTS.md before making changes."
 4. In `index.html`, set `<title>` to "<Product name> prototype", and set `<html lang>` to the UI language code
    (for example `en` or `es`).
 5. In `package.json`, set `name` to the product name in kebab-case, for example `acme-booking-prototype`.
 6. If the brief Fidelity is Mid-fi (Memorisely), run "Mid-fi setup" in `guidelines/design-system/README.md`
-   (uncomment the `memorisely.css` import, add the Inter links, add `lucide-react`).
-7. If the prototype is mobile-only, set `previewViewport: { width: 390, height: 844 }` in the registry.
+   (uncomment the `memorisely.css` import and add `lucide-react`).
+7. If the prototype is mobile-only, set `previewViewport: { width: 390, height: 844 }` in the registry. If only
+   some screens are phone-sized, set `previewViewport` on those screens instead.
 8. Tell the user in one line that setup is done, then start the first flow.
 
 README structure (replace every `<…>` with values from `project/BRIEF.md`):

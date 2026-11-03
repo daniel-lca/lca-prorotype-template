@@ -3,7 +3,7 @@
  *
  * Turn on only when project/BRIEF.md Fidelity is "Mid-fi (Memorisely)":
  *   1. In src/index.css, uncomment  @import './styles/memorisely.css';  (directly under  @import 'tailwindcss';)
- *   2. In index.html, add the Inter <link> tags from guidelines/design-system/text.md.
+ *   2. Set fidelity: 'mid-fi' in src/prototype/registry.ts (Inter is already loaded in index.html).
  * Lo-fi and Lo-fi+ prototypes never import this file.
  *
  * What it gives you:

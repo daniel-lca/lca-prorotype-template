@@ -37,11 +37,12 @@ The brief's **Fidelity** answer (`project/BRIEF.md`) decides the visual rules:
 The Memorisely tokens are already written for Tailwind v4 in `src/styles/memorisely.css`. Do not write your own.
 
 1. In `src/index.css`, uncomment `@import './styles/memorisely.css';` (it stays directly under `@import 'tailwindcss';`).
-2. In `index.html`, add the Inter `<link>` tags from [text.md](text.md) "In this template".
+2. Inter is already loaded in `index.html`; `memorisely.css` makes it the product font.
 3. Add `lucide-react` to `package.json` dependencies (the pre-approved Mid-fi icon library).
 4. If the brief asks for dark mode, use `useTheme()` from `src/styles/theme.ts` (see [light-dark-mode.md](light-dark-mode.md)).
-5. Paint the product shell, not `body`: the shell root gets `bg-background text-foreground`. `body` keeps the
-   template's neutral style for Prototype Home.
+5. Paint the product shell, not `body`: the shell root gets `bg-background text-foreground`.
+6. Set `fidelity: 'mid-fi'` in `src/prototype/registry.ts`, so the design check applies the Mid-fi rules (for
+   example `bg-violet-600` → `bg-primary`).
 
 The file gives you these utilities (light and dark values included):
 
@@ -98,5 +99,9 @@ or the brief records an exception under "Decisions & exceptions".
 2. `AGENTS.md` and the numbered guidelines `01`–`08`.
 3. These design-system files.
 
-The prototype navigation system (`04`–`08`: registry, Prototype Home, flow bar) follows these rules too, but
-stays grayscale at every fidelity so it reads as tooling, not product.
+These rules apply to product screens. Prototype Home and the flow bar are tooling: they use the LowCode Agency
+brand (`src/prototype/tooling.css`) at every fidelity, so they never look like part of the product.
+
+The design check (development only, on Prototype Home and in the flow bar) flags the most common breaks of these
+rules in `src/screens/` and `src/components/`, with the class to use instead. It does not catch everything: still
+follow the files above.
