@@ -68,9 +68,16 @@ export function validateRegistry(r: Registry = registry): string[] {
     if (!screens.has(shortcut.screenId)) issues.push(`Shortcut "${shortcut.id}" references missing screen "${shortcut.screenId}"`);
   }
 
+  // Screens import the registry (through ScreenLink) and the registry imports the screens. After a hot reload in
+  // development, Vite can give this check a second copy of a screen module, so identity alone gives false
+  // "not registered" issues. In development, a component with the same name also counts as registered.
   const registered = new Set<unknown>(r.screens.map((s) => s.component));
+  const registeredNames = new Set(r.screens.map((s) => s.component.name).filter(Boolean));
+  const isRegistered = (exported: unknown) =>
+    registered.has(exported) ||
+    (import.meta.env.DEV && typeof exported === 'function' && registeredNames.has(exported.name));
   for (const [path, mod] of Object.entries(screenModules)) {
-    if (!Object.values(mod).some((exported) => registered.has(exported))) {
+    if (!Object.values(mod).some(isRegistered)) {
       issues.push(
         `${path.replace('../', 'src/')} is not registered in src/prototype/registry.ts (shared parts belong in src/components/, mock data in src/data/)`,
       );
