@@ -179,7 +179,7 @@ Small internal spacing communicates relationships and should remain consistent u
 
 Marketing type must scale intentionally.
 
-Use one consistent text hierarchy built on the Tailwind default type scale.
+Use the text hierarchy from [text.md](text.md).
 
 ### Display
 
@@ -195,7 +195,7 @@ Example:
 <h1 class="text-5xl md:text-7xl xl:text-8xl">
 ```
 
-Where exact design-system values are required, use the project's shared typography utilities or tokens rather than arbitrary one-off values.
+Where exact design-system values are required, use the project's shared typography utilities or tokens (Mid-fi: the `@theme` text tokens in [text.md](text.md)) rather than arbitrary one-off values.
 
 ### Heading 1
 

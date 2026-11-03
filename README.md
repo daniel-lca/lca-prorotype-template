@@ -28,7 +28,7 @@ screen from that registry, grouped by user type. If the registry is out of sync,
 | `KICKOFF_PROMPT.md` | First message to paste in AI Studio |
 | `guidelines/01`–`03` | Intake questions, lo-fi visual rules, tech & deploy rules |
 | `guidelines/04`–`08` | Prototype system: Prototype Home, registry schema, screen/flow lifecycle, UX rules, AI workflow |
-| `guidelines/design-system/` | Memorisely design rules (accessibility, interactions, status, color, radius…) and when each applies |
+| `guidelines/design-system/` | Memorisely design rules (accessibility, interactions, status, spacing, text, color, radius…) and when each applies |
 | `project/BRIEF.md` | The brief, filled in during intake |
 | `src/prototype/` | Registry, validation, Prototype Home, flow bar |
 | `src/components/` | `Placeholder`, `Note`, `PhoneFrame` building blocks |
@@ -39,9 +39,10 @@ screen from that registry, grouped by user type. If the registry is out of sync,
 |---|---|
 | Lo-fi (default) | Grayscale wireframe, placeholder boxes |
 | Lo-fi+ | Grayscale plus one accent color, real-looking copy |
-| Mid-fi (Memorisely) | Team design system: Slate + Violet tokens, Lucide icons, optional dark mode |
+| Mid-fi (Memorisely) | Team design system: Slate + Violet tokens, Inter type, Lucide icons, optional dark mode |
 
-Behavior rules (accessibility, interaction states, system status, progressive disclosure, responsive) apply at every level.
+Behavior rules (accessibility, interaction states, system status, progressive disclosure, responsive, spacing,
+type weights and casing) apply at every level.
 
 ## Local dev
 

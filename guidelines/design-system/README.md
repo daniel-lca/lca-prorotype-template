@@ -13,6 +13,8 @@ you do not need to read all of them before every change.
 | [system-status.md](system-status.md) | **Every prototype** | showing loading, saving, success, error, empty, or offline states |
 | [progressive-disclosure.md](progressive-disclosure.md) | **Every prototype** | a screen has many options, settings, or secondary actions |
 | [responsive.md](responsive.md) | **Every prototype** | laying out a screen for the breakpoints in the brief |
+| [spacing.md](spacing.md) | **Every prototype** | setting padding, gaps, margins, or density |
+| [text.md](text.md) | **Every prototype** (Inter and exact type tokens: Mid-fi only) | writing headings, body copy, labels, buttons, tables, or numbers |
 | [color.md](color.md) | Mid-fi (Memorisely) only | choosing any color or defining tokens |
 | [radius.md](radius.md) | Mid-fi (Memorisely) only | styling corners of controls, cards, dialogs |
 | [icons.md](icons.md) | Mid-fi (Memorisely) only | adding icons |
@@ -23,8 +25,9 @@ The brief's **Fidelity** answer (`project/BRIEF.md`) decides the visual rules:
 
 - **Lo-fi** / **Lo-fi+** → `02-lofi-prototype-rules.md` wins on anything visual (grayscale, no icon library, no
   animation, `Placeholder` boxes). From the "every prototype" files, apply the behavior: semantics, keyboard,
-  focus, labels, states, feedback, disclosure, layout. Where a file says "Violet focus ring", use a `neutral-900`
-  ring; where it says "Destructive color", use text plus a heavier border.
+  focus, labels, states, feedback, disclosure, layout, spacing, type weights and casing. Where a file says
+  "Violet focus ring", use a `neutral-900` ring; where it says "Destructive color", use text plus a heavier
+  border; where it says "Inter", keep the system font stack.
 - **Mid-fi (Memorisely)** → every file above applies. `Placeholder` is still used for images, and `Note`
   stays available for reviewer annotations.
 
@@ -46,7 +49,9 @@ or the brief records an exception under "Decisions & exceptions".
 | Lucide (`lucide-react`) | **Mid-fi only:** allowed; add `lucide-react` to `package.json` and note it in the brief. Lo-fi: no icon library |
 | Framer Motion | Not allowed. Use Tailwind `transition-*` utilities and CSS |
 | Tailwind theme config / shadcn theme variables | Tailwind v4 `@theme` and CSS variables in `src/index.css` (there is no `tailwind.config.js`) |
-| "Memorisely Text" / type hierarchy | Tailwind default type scale; keep a small set of sizes and weights (no separate Text guideline exists) |
+| Inter typeface | **Mid-fi only:** Google Fonts `<link>` in `index.html` plus `--font-sans` in `@theme` (see [text.md](text.md) "In this template"). Lo-fi: system font stack |
+| Type scale tokens | Lo-fi: nearest Tailwind default sizes. Mid-fi: `--text-*` tokens in `@theme` (see [text.md](text.md)) |
+| Spacing tokens (`--spacing-*`) | Tailwind's default spacing utilities already match the scale (`gap-1.5` = 6px). Do not redefine them |
 
 ## Precedence
 

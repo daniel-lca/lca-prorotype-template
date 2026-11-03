@@ -27,7 +27,7 @@ Ask these **phase by phase**. For each phase:
 3. **Fidelity level**
    - Lo-fi wireframe: grayscale, boxes, placeholder imagery **(default)**
    - Lo-fi+: grayscale layout with one accent color and real-looking copy
-   - Mid-fi (Memorisely): the team design system: Slate + Violet tokens, Lucide icons, real states and
+   - Mid-fi (Memorisely): the team design system: Slate + Violet tokens, Inter type, Lucide icons, real states and
      light motion. See `guidelines/design-system/README.md`.
    - If Mid-fi: **Dark mode too?** Yes / No **(default: No, light only)**
 4. **Navigation pattern** (skip for single-page websites)
