@@ -12,7 +12,8 @@ rules in text).
 ## Visual
 
 - **Grayscale only.** Use Tailwind `neutral-*` shades. The one exception: if the brief says
-  "Lo-fi+", allow a single accent color for primary buttons and active states.
+  "Lo-fi+", allow a single accent color for primary buttons and active states. Use the brief's accent color
+  (default `violet-600`, with `violet-700` for hover).
 - **System font stack** (Tailwind default `font-sans`). No custom fonts, no icon fonts.
 - **Images = placeholder boxes**: a gray box with a diagonal cross or a label like `[Hero image]`.
   Use the `Placeholder` component in `src/components/Placeholder.tsx`. No stock photos, no generated images.
@@ -22,6 +23,8 @@ rules in text).
 - Type follows `design-system/text.md`: Regular and Medium do most of the work, Semibold only on buttons, no Bold,
   sentence case everywhere.
 - No gradients, shadows beyond `shadow-sm`, animations, or illustrations.
+- Loading and saving states are static: text such as "Saving…" or gray boxes. Do not use `animate-spin`,
+  `animate-pulse`, or animated spinners, even where a design-system file shows one.
 
 ## Content
 
@@ -61,7 +64,7 @@ rules in text).
 | Responsive | Mobile-first. Check at 390px, 768px, 1280px. Nav collapses on mobile. |
 | Desktop only | Build for 1440px wide, min width 1280px. No mobile layout. |
 | Mobile only | Build at 390px. On wider screens, center the app inside a phone frame (`PhoneFrame` component). Prototype Home stays full width, outside the frame. Set `previewViewport: { width: 390, height: 844 }` in the registry so gallery previews use the phone size. |
-| Mobile + desktop | Two layouts: under 768px and 1024px and above. Tablet can use the desktop layout. |
+| Mobile + desktop | Two layouts: the mobile layout below 768px (unprefixed classes) and the desktop layout from 768px up (`md:` classes). 768–1023px uses the desktop layout, so check it at 768px and 1280px. |
 
 ## Wireframe notes (optional)
 

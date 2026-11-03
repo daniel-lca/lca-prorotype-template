@@ -8,6 +8,28 @@ Ask these **phase by phase**. For each phase:
 - Skip a question when an earlier answer already settles it, and say why you skipped it.
 - If an answer is vague, ask one follow-up, then pick the default and note the assumption.
 
+If the user shares a PRD or another product document, use the next section instead of asking phase by phase.
+
+---
+
+## If the user shares a PRD
+
+1. Read the whole document before you reply.
+2. Compare it with questions 1–16 below. Give each question one status:
+   - **answered**: the document states it. Write the answer in a few words.
+   - **assumed**: the document implies it. Write your reading and mark it "(assumed)".
+   - **missing**: the document does not cover it.
+3. Send one message:
+   - a compact table of the answered and assumed questions (number, short answer)
+   - then the missing questions, grouped by phase, numbered as in this file, with **(default)** options marked
+   - then one line: "Reply with answers, 'defaults', or corrections to any assumption."
+4. Do not ask a question that the document answers. Do not invent product facts. If the document does not say
+   something, the question stays missing.
+5. If the document describes more than the prototype can cover, propose the 1–3 core flows (question 9) and
+   list the rest as out of scope (question 14), marked "(assumed)".
+6. After the user replies, continue with "After Phase 3". In `project/BRIEF.md` → "Other notes", write that the
+   brief is based on the user's PRD, with its title.
+
 ---
 
 ## Phase 1 — Project type & setup
@@ -26,7 +48,8 @@ Ask these **phase by phase**. For each phase:
    - Mobile + desktop, no tablet-specific layout
 3. **Fidelity level**
    - Lo-fi wireframe: grayscale, boxes, placeholder imagery **(default)**
-   - Lo-fi+: grayscale layout with one accent color and real-looking copy
+   - Lo-fi+: grayscale layout with one accent color and real-looking copy. If Lo-fi+: **Which accent color?**
+     **(default: violet-600)**
    - Mid-fi (Memorisely): the team design system: Slate + Violet tokens, Inter type, Lucide icons, real states and
      light motion. See `guidelines/design-system/README.md`.
    - If Mid-fi: **Dark mode too?** Yes / No **(default: No, light only)**
@@ -54,7 +77,8 @@ Ask these **phase by phase**. For each phase:
 
 14. **Out of scope**: anything the prototype must NOT include.
 15. **References**: links or names of products/sites whose layout or flow you like.
-16. **Anything else**: deadlines, the audience for the demo (client, internal, investors), must-have details.
+16. **Purpose and audience**: what must this prototype validate or communicate, and who will review it
+    (client, internal team, investors, test users)? Also deadlines and must-have details.
 
 ---
 
@@ -78,7 +102,8 @@ The template files describe the template, not the product. The project repositor
 2. In `src/prototype/registry.ts`, set `name` to the product name.
 3. In `metadata.json`, set `name` to "<Product name> prototype".
    Set `description` to the pitch, followed by "Read AGENTS.md before making changes."
-4. In `index.html`, set `<title>` to "<Product name> prototype".
+4. In `index.html`, set `<title>` to "<Product name> prototype", and set `<html lang>` to the UI language code
+   (for example `en` or `es`).
 5. In `package.json`, set `name` to the product name in kebab-case, for example `acme-booking-prototype`.
 6. If the brief Fidelity is Mid-fi (Memorisely), run "Mid-fi setup" in `guidelines/design-system/README.md`
    (uncomment the `memorisely.css` import, add the Inter links, add `lucide-react`).

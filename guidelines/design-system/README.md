@@ -27,7 +27,8 @@ The brief's **Fidelity** answer (`project/BRIEF.md`) decides the visual rules:
   animation, `Placeholder` boxes). From the "every prototype" files, apply the behavior: semantics, keyboard,
   focus, labels, states, feedback, disclosure, layout, spacing, type weights and casing. Where a file says
   "Violet focus ring", use a `neutral-900` ring; where it says "Destructive color", use text plus a heavier
-  border; where it says "Inter", keep the system font stack.
+  border; where it says "Inter", keep the system font stack; where it shows a spinner, skeleton shimmer, or
+  any other animation, use static text ("Saving…") or still gray boxes.
 - **Mid-fi (Memorisely)** → every file above applies. `Placeholder` is still used for images, and `Note`
   stays available for reviewer annotations. Turn on the tokens first (next section).
 

@@ -84,7 +84,7 @@ Example:
 {
   "id": "customer-onboarding",
   "userTypeId": "customer",
-  "name": "Account Creation",
+  "name": "Account creation",
   "description": "Create and configure a new customer account.",
   "screenIds": [
     "customer-welcome",
@@ -93,7 +93,7 @@ Example:
     "customer-onboarding-complete"
   ],
   "startScreenId": "customer-welcome",
-  "status": "ready",
+  "status": "ready-for-review",
   "order": 1
 }
 ```
@@ -123,10 +123,10 @@ Example:
   "id": "customer-create-account",
   "userTypeId": "customer",
   "flowId": "customer-onboarding",
-  "name": "Create Account",
+  "name": "Create account",
   "description": "Customer enters the information required to create an account.",
   "route": "/prototype/customer/onboarding/create-account",
-  "status": "ready",
+  "status": "ready-for-review",
   "variant": "default",
   "tags": []
 }

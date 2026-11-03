@@ -14,11 +14,13 @@ screen from that registry, grouped by user type. If the registry is out of sync,
 
 1. **Import it in AI Studio**: Build → `+` in the prompt box → *Import from GitHub* → pick this template repo
    (or a copy made with GitHub → *Use this template*).
-2. **Paste the kickoff prompt** from [`KICKOFF_PROMPT.md`](KICKOFF_PROMPT.md) as your first message.
-   AI Studio reads the guidelines and runs the intake in three phases:
+2. **Paste the kickoff prompt** from [`KICKOFF_PROMPT.md`](KICKOFF_PROMPT.md) as your first message, with your
+   PRD below it if you have one (AI Studio then asks only what the PRD does not answer). AI Studio may already
+   start working on import; `AGENTS.md` tells it not to change files before the intake.
+   Without a PRD, it runs the intake in three phases:
    1. Project type & setup (category, breakpoints, fidelity, navigation, language)
    2. The product (name, user types, flows, screens, content, interactions, product rules)
-   3. Scope & references
+   3. Scope, references, purpose & audience
 3. **Confirm the brief** that AI Studio writes to [`project/BRIEF.md`](project/BRIEF.md). After you say "go",
    it runs project setup (project README, app name, page title) and then builds.
 4. **Save to GitHub** from AI Studio: Settings → GitHub → create a new repository for the project

@@ -4,6 +4,24 @@ You are working inside a **prototype template**. Your job is to turn a short int
 clickable prototype that builds with Vite and deploys to Vercel, and to keep every screen connected to the
 prototype navigation system for the life of the project.
 
+## If you start automatically after the import
+
+AI Studio can start working as soon as this repository is imported, before the user sends a message.
+In that case, follow these rules:
+
+1. Read this file and every file in "Read first".
+2. You may install the dependencies in `package.json` and start the dev server (`npm run dev`).
+3. Do not change, add, move, or delete files. The project already runs as it is: Vite, React, TypeScript, and
+   Tailwind CSS v4, with `src/main.tsx` as the entry point.
+4. Do not convert the project to another structure. Do not add a root `index.tsx`, an import map, a Tailwind
+   CDN script, a `server/` folder, or a Gemini API call.
+5. Do not build a first version of the app. The registry stays empty until the intake is done.
+   Prototype Home shows an empty state on purpose.
+6. Send the reply described in "Your first reply" at the end of this file.
+
+If you changed files before you read this, list each changed file in your reply. Then restore each file to its
+imported content. Keep `package-lock.json` only.
+
 ## Read first
 
 Before your first reply, read in this order:
@@ -29,6 +47,8 @@ does not exist before checking.
 1. **Do not write or change app code until the intake is complete and the user confirms the brief.**
    The template ships with an empty registry on purpose; Prototype Home shows an empty state. Leave it alone during intake.
 2. Run the intake as a conversation, **one phase at a time**. Wait for answers before moving on.
+   If the user shares a PRD or another product document, follow "If the user shares a PRD" in
+   `guidelines/01-intake-questions.md` instead: ask only what the document does not answer.
 3. When intake is done, write the answers into `project/BRIEF.md` (replace the placeholders),
    show the user a short summary, and ask for a "go" before building.
 4. After the user says "go", run **project setup** once, before you build any screen. Follow
@@ -106,4 +126,8 @@ Then report the change in the compact format from `guidelines/08-ai-workflow.md`
 ## Your first reply
 
 Greet the user in one line, say you have read the guidelines, and start **Phase 1** from
-`guidelines/01-intake-questions.md`. Nothing else.
+`guidelines/01-intake-questions.md`. Add one line: "You can also paste a PRD or product brief, and I will ask only
+what it does not answer." Nothing else.
+
+If the user's first message already contains a PRD, skip the greeting and follow the PRD path in
+`guidelines/01-intake-questions.md`.
