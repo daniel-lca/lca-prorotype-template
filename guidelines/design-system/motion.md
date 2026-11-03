@@ -37,6 +37,10 @@ Use a restrained duration scale:
 --duration-deliberate: 500ms;
 ```
 
+**In this template:** Tailwind v4 has no duration tokens, so do not add these variables. Use the matching utilities:
+`duration-0`, `duration-100`, `duration-150`, `duration-200`, `duration-300`, `duration-500`. The default easing is
+`ease-standard` (from `src/styles/memorisely.css`). Example: `transition-colors duration-150 ease-standard`.
+
 Most product interactions should use `100–200ms`.
 
 Use `300ms` for larger surfaces or transitions that travel further.
@@ -240,6 +244,15 @@ Do not use dramatic spring entrances.
 
 The dialog should feel immediate because it interrupts the current task.
 
+**In this template** (native `<dialog>` with `showModal()`), animate the entrance only:
+
+```tsx
+<dialog className="m-auto rounded-xl opacity-100 transition-[opacity,scale] transition-discrete duration-200 ease-standard
+  starting:scale-[0.98] starting:opacity-0 backdrop:bg-black/40 motion-reduce:transition-none">
+```
+
+Closing is instant. Do not build exit animations with timers.
+
 ---
 
 ## 10. Sheets and drawers
@@ -325,6 +338,9 @@ Chevron rotation can accompany the expansion:
 ```
 
 Keep it synchronized with the content transition.
+
+**In this template** (native `<details>` / `<summary>`): do not animate the content height. Rotate the chevron only:
+`<details className="group">` … `<ChevronDown className="transition-transform duration-200 ease-standard group-open:rotate-180" />`.
 
 ---
 
@@ -514,11 +530,9 @@ Before adding motion, inspect the project for:
 
 Reuse established behavior.
 
-When shadcn/ui or Radix already provides appropriate enter/exit behavior, preserve it unless there is a clear reason to change it.
-
-Do not introduce Framer Motion or another dependency for simple CSS transitions.
-
-Use a motion library when the interaction genuinely requires orchestration, layout animation or gesture support.
+Do not introduce Framer Motion or any other motion library. This template allows none
+(`03-tech-and-deploy.md`). If an interaction seems to need orchestration, layout animation, or gestures, simplify
+the interaction instead.
 
 ---
 

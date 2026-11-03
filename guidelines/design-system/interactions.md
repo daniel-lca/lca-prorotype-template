@@ -90,11 +90,13 @@ Use one consistent focus treatment (Violet ring in Mid-fi, `neutral-900` ring in
 
 Prefer `:focus-visible` so pointer interactions do not unnecessarily show keyboard focus styling.
 
-Example:
+Example (Tailwind, this template):
 
-```css
-outline: none;
-box-shadow: 0 0 0 2px var(--ring);
+```tsx
+// Mid-fi
+className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+// Lo-fi and Lo-fi+
+className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900"
 ```
 
 Ensure the focus treatment remains visible against both light and dark backgrounds.

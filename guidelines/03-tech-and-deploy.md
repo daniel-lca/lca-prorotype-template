@@ -20,7 +20,10 @@ The repo must keep building with `npm run build` and deploy to **Vercel** with z
 src/
   main.tsx            # entry, do not rename
   App.tsx             # router, generated from the registry (rarely edited)
-  index.css           # Tailwind import, base styles, design tokens (@theme) for Mid-fi
+  index.css           # Tailwind import, base styles; Mid-fi uncomments the memorisely.css import
+  styles/
+    memorisely.css    # Mid-fi tokens for Tailwind v4: colors (light + dark), Inter, type scale, easing
+    theme.ts          # useTheme(): Light / Dark / System for Mid-fi prototypes with dark mode
   prototype/
     registry.ts       # THE prototype registry: user types, flows, screens, routes, shortcuts
     types.ts          # registry data model
