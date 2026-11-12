@@ -46,6 +46,9 @@ If the user shares a PRD or another product document, use the next section inste
    - Desktop only (design at 1440px, must not break at 1280px)
    - Mobile only (design at 390px, shown inside a phone frame on desktop)
    - Mobile + desktop, no tablet-specific layout
+   - If the category is Mobile app, or the devices are Mobile only: **Which platform's rules apply?**
+     (permissions, system alerts, App Store rules; see `guidelines/platform/README.md`)
+     Both iOS and Android **(default)** / iOS only / Android only / Mobile web (browser permissions only)
 3. **Fidelity level**
    - Lo-fi wireframe: grayscale, boxes, placeholder imagery **(default)**
    - Lo-fi+: grayscale layout with one accent color and real-looking copy. If Lo-fi+: **Which accent color?**
@@ -55,6 +58,8 @@ If the user shares a PRD or another product document, use the next section inste
    - If Mid-fi: **Dark mode too?** Yes / No **(default: No, light only)**
 4. **Navigation pattern** (skip for single-page websites)
    - Top nav bar · Sidebar · Bottom tab bar (mobile) · Let the AI decide from the category **(default)**
+   - Mobile apps: a bottom tab bar for 3 to 5 main sections. Do not offer a hamburger menu as the main navigation
+     (`guidelines/platform/README.md`).
 5. **Language of the UI copy**: English **(default)** / Spanish / other.
 6. **Does the prototype need to show logged-in vs logged-out states?** Yes / No **(default: No, start logged in)**
 
@@ -72,6 +77,11 @@ If the user shares a PRD or another product document, use the next section inste
 12. **Key interactions**: modals, filters, multi-step forms, drag and drop, search, etc.
 13. **Product rules**: permissions, limits, approvals, required information, role-specific behavior.
     Also: which edge cases or states should reviewers be able to open directly (empty, error, rejected…)?
+    **Device permissions** (skip for websites and back-office tools): which ones does the product use (location,
+    camera, microphone, photos, contacts, notifications, ad tracking…), for which feature, and at which moment?
+    Is there an explanation screen before the system alert? **(default: ask at first use of the feature, follow
+    `guidelines/platform/permissions.md`)**. Every permission listed here gets its allowed, denied, and partial
+    states.
 
 ## Phase 3 — Scope & references
 

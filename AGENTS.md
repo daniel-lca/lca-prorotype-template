@@ -39,7 +39,10 @@ Before your first reply, read in this order:
 8. `guidelines/08-ai-workflow.md` — the required workflow and integrity checklist for every prototype task.
 9. `guidelines/design-system/README.md` — which design-system files apply at which fidelity. Open the
    individual files when the task touches their topic.
-10. `project/BRIEF.md` — the product brief.
+10. `guidelines/platform/README.md` — platform rules for permissions, onboarding, accounts, notifications,
+    alerts, ratings, and purchases. Read it when the brief's Platform is Both, iOS only, or Android only. Open the
+    individual files when the task touches their topic.
+11. `project/BRIEF.md` — the product brief.
 
 Before any later prototype task, re-read `project/BRIEF.md` and inspect `src/prototype/registry.ts`, the relevant
 flow, its adjacent screens, and existing components. Do not assume a flow, screen, route, user type, or component
@@ -83,6 +86,10 @@ the registry. See `guidelines/04-prototype-system.md` section 2B and the visual 
 follow the design rules at every fidelity; the active theme file in `src/index.css` sets their colors. Compose with
 `asChild` (`<Button asChild><ScreenLink to="…">…</ScreenLink></Button>`). Never hand-build a modal, sheet, or menu.
 See `guidelines/design-system/README.md`, "Components".
+
+**Show operating-system alerts with `SystemAlert`** from `src/components/SystemAlert.tsx`: permission requests,
+the rating prompt, and purchase confirmations. Build every permission with all its states (allowed, denied,
+partial), not only the happy path. See `guidelines/platform/permissions.md`.
 
 **The design check enforces the design rules.** In development, Prototype Home lists every class in
 `src/screens/` and `src/components/` that breaks the rules for `registry.fidelity`, with the class to use instead,

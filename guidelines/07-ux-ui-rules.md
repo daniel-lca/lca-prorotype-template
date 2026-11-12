@@ -169,6 +169,10 @@ Do not accidentally create:
 - inconsistent content widths
 - unrelated breakpoint behavior
 
+For mobile apps, follow the platform in the brief (iOS, Android, or both) for permissions, onboarding, accounts,
+notifications, alerts, ratings, and purchases: `guidelines/platform/README.md`. These rules change flows and states,
+not visual style.
+
 ---
 
 ## 11. Prototype Fidelity
