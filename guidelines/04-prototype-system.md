@@ -222,6 +222,9 @@ Use this rule:
 
 Create a separate registered screen/state when the state is important enough that a stakeholder or developer should be able to open it directly.
 
+Device permissions always need their states registered: the system alert, allowed, denied, and partial where it
+applies. See `guidelines/platform/permissions.md` §7.
+
 Minor interaction states can remain inside the main screen implementation.
 
 ---

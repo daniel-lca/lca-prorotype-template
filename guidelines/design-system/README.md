@@ -55,6 +55,8 @@ Available: `accordion`, `alert`, `alert-dialog`, `avatar`, `badge`, `breadcrumb`
 - A state that must open directly (an open dialog, menu, or sheet) is a registered variant whose component renders
   the parent with the overlay open, for example `<AlertDialog defaultOpen>`. The gallery shows it open, inside its
   own preview.
+- Operating-system alerts (permission requests, rating prompt, purchase confirmation) use `SystemAlert` from
+  `src/components/SystemAlert.tsx`, not a styled `AlertDialog`. See `guidelines/platform/permissions.md` §10.
 - Need another component? Run `npx shadcn@latest add <name>`. It adds one file to `src/components/ui` and uses the
   existing theme. Do not edit the files in `src/components/ui` except to fix a bug.
 

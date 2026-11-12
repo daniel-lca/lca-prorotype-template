@@ -10,6 +10,7 @@
 |---|---|
 | Category | TBD |
 | Devices & breakpoints | TBD |
+| Platform | TBD <!-- Mobile apps only: Both (default) / iOS only / Android only / Mobile web. Decides which guidelines/platform rules apply --> |
 | Fidelity | TBD <!-- Lo-fi / Lo-fi+ / Mid-fi (Memorisely) --> |
 | Accent color | TBD <!-- Lo-fi+ only; default violet-600 --> |
 | Dark mode | TBD <!-- Mid-fi only; default No --> |
@@ -42,6 +43,14 @@ Each row becomes an entry in `registry.flows`. Name flows by user goal, not UI t
 |---|---|---|---|---|
 | TBD | | | | |
 
+### Device permissions
+
+Each row gets the states in `guidelines/platform/permissions.md` §7. Write "None" if the product uses none.
+
+| Permission | Feature that needs it | When the app asks | Explanation screen? |
+|---|---|---|---|
+| TBD | | | |
+
 ### Directly openable states & shortcuts
 
 Edge cases reviewers should open directly (empty, error, rejected…). They become variants or developer shortcuts.
@@ -72,5 +81,8 @@ Unresolved decisions go here instead of being invented.
 - [ ] TBD
 
 ## Decisions & exceptions
+
+<!-- One line per exception: what was decided, which rule it replaces, who asked. Example:
+     "Location explanation screen has a 'Not now' button (replaces guidelines/platform/permissions.md §4). Client request." -->
 
 _None yet._

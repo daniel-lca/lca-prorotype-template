@@ -186,6 +186,12 @@ Before considering the task complete, validate:
 - [ ] No orphan flow exists.
 - [ ] No duplicate screen implementation was created unnecessarily.
 
+### Platform rules (mobile apps)
+- [ ] Every permission in `project/BRIEF.md` → Device permissions has its states registered (`guidelines/platform/permissions.md` §7).
+- [ ] Every system alert uses `SystemAlert`, and each of its buttons opens the correct state.
+- [ ] Explanation screens follow `permissions.md` §4, or the exception is recorded in "Decisions & exceptions".
+- [ ] No permission is asked at launch unless the app cannot work without it.
+
 ### Design check
 - [ ] Prototype Home says "Design check: no issues" (development only).
 - [ ] The flow bar on the changed screens shows no "design issues" badge.
