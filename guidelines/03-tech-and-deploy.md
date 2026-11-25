@@ -40,7 +40,8 @@ src/
     types.ts          # registry data model
     derive.ts         # derived views (ordering, steps, grouping, flow context, links)
     validate.ts       # integrity checks shown on Prototype Home and in the flow bar
-    navigation.tsx    # ScreenLink / useGoToScreen: links between screens by screen ID
+    navigation.tsx    # ScreenLink / useGoToScreen / ScreenRemapContext: links between screens by screen ID
+    strings.ts        # tooling text (Prototype Home, flow bar) in each UI language; picked by registry.language
     PrototypeHome.tsx # Prototype Flows / All Prototype Screens (visual gallery) / Developer shortcuts
     ScreenPreview.tsx # one gallery preview: the real screen in an inert, scaled iframe
     preview.ts        # preview mode (?preview=1) used by the gallery iframes
@@ -57,6 +58,12 @@ src/
 project/
   BRIEF.md            # the filled-in brief (product source of truth)
 ```
+
+**Imports:** import project files with the `@/` alias (`@/components/shell/role`), never with a relative path
+(`../shell/role`). This matters most for a module that holds shared state (the current role, a demo store). If
+one file imports it by alias and another by relative path, the Vite dev server can load it twice. Each copy has
+its own state, so screens show the wrong role or lose data, and only a server restart fixes it. The production
+build does not show the problem, so it is easy to miss.
 
 ## Rules
 

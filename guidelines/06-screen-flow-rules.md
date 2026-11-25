@@ -219,3 +219,35 @@ They may be:
 - developer shortcuts
 
 The chosen method must remain consistent within the project.
+
+---
+
+## 12. Role Views
+
+Some products show the same screen to several roles with small differences: another sidebar, another avatar,
+fewer actions (read-only), or other data. When the review needs each role's view, register one screen per role.
+This is not duplication (section 10): each copy is a different state of the product.
+
+- **One component, one prop.** Build the screen once and pass the role, for example
+  `<OpportunityDetail role="manager" />`. Never copy the screen file.
+- **One user type per role, one route prefix per role**, for example `/sales/...` and `/manager/...`. IDs use the
+  same prefix: `sales-opportunity-detail`, `manager-opportunity-detail`.
+- **Links stay inside the role.** Wrap each role's screens in `ScreenRemapContext.Provider`
+  (`src/prototype/navigation.tsx`) with a function that returns the role's copy of the target when it exists:
+
+  ```tsx
+  const toManager = (id: string) => {
+    const copy = id.replace(/^sales-/, 'manager-');
+    return screenById(copy) ? copy : id;
+  };
+  <ScreenRemapContext.Provider value={toManager}>…</ScreenRemapContext.Provider>
+  ```
+
+  Screens keep linking to one ID (`sales-…`). The provider sends the reviewer to the copy of the current role.
+- **Actions that belong to one role stay with that role.** If only one role can do an action (create, approve,
+  decide), the other roles either do not see the button or open the owner's screen. Write down which one in
+  `project/BRIEF.md`, Decisions & exceptions.
+- **Keep the role in one module** (the current role, its persona, its navigation) and import it with the `@/`
+  alias everywhere (`03-tech-and-deploy.md`, Imports).
+- Before you report the work, follow the links from each role's start screen. Check that every screen shows that
+  role's persona and does not jump to another role by mistake.
