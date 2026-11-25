@@ -1,4 +1,5 @@
 import { registry } from './registry';
+import { SEPARATOR } from './strings';
 import type { Flow, Screen, UserType, Viewport } from './types';
 
 // Read-only views over the registry. Counts, step numbers, and grouping are always computed, never stored.
@@ -52,14 +53,14 @@ export function stateLabel(screen: Screen): string | undefined {
 }
 
 /**
- * Display label. A variant is shown as "<parent name> · <state>", so its own name never repeats the state.
- * Example: "Choose colleague · no colleagues".
+ * Display label. A variant is shown as "<parent name> - <state>", so its own name never repeats the state.
+ * Example: "Choose colleague - no colleagues".
  */
 export function screenLabel(screen: Screen): string {
   const state = stateLabel(screen);
   if (!state) return screen.name;
   const parent = screen.parentScreenId ? screenById(screen.parentScreenId) : undefined;
-  return `${parent?.name ?? screen.name} · ${state}`;
+  return `${parent?.name ?? screen.name}${SEPARATOR}${state}`;
 }
 
 export function previewViewport(screen: Screen): Viewport {

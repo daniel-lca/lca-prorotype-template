@@ -9,6 +9,7 @@ import { CurrentScreenProvider } from './prototype/navigation';
 import { isPreview } from './prototype/preview';
 import { PrototypeHome } from './prototype/PrototypeHome';
 import { registry } from './prototype/registry';
+import { SEPARATOR, toolingText } from './prototype/strings';
 import type { Screen } from './prototype/types';
 import { registryIssues } from './prototype/validate';
 
@@ -29,12 +30,13 @@ function FlowEntry() {
 }
 
 function NotFound() {
+  const t = toolingText();
   return (
     <main className="mx-auto max-w-2xl p-6">
-      <h1 className="text-2xl font-medium">Screen not found</h1>
-      <p className="mt-2 text-neutral-600">This route is not registered in the prototype.</p>
+      <h1 className="text-2xl font-medium">{t.notFoundTitle}</h1>
+      <p className="mt-2 text-neutral-600">{t.notFoundBody}</p>
       <Link to="/" className="mt-4 inline-block underline">
-        Go to prototype home
+        {t.goHome}
       </Link>
     </main>
   );
@@ -43,7 +45,7 @@ function NotFound() {
 function ScreenRoute({ screen }: { screen: Screen }) {
   const ScreenComponent = screen.component;
   useEffect(() => {
-    document.title = `${screenLabel(screen)} · ${registry.name}`;
+    document.title = `${screenLabel(screen)}${SEPARATOR}${registry.name}`;
   }, [screen]);
   return (
     <CurrentScreenProvider screen={screen}>
@@ -55,7 +57,7 @@ function ScreenRoute({ screen }: { screen: Screen }) {
 
 function HomeRoute() {
   useEffect(() => {
-    document.title = `Prototype home · ${registry.name}`;
+    document.title = `${toolingText().prototypeHome}${SEPARATOR}${registry.name}`;
   }, []);
   return <PrototypeHome />;
 }
