@@ -79,7 +79,9 @@ not build a second gallery. If the prototype is mobile-only, set `previewViewpor
 the registry. See `guidelines/04-prototype-system.md` section 2B and the visual checks in `guidelines/08-ai-workflow.md`.
 
 **Screens link to other screens by screen ID**, with `ScreenLink` or `useGoToScreen` from
-`src/prototype/navigation.tsx`. Never write a route string inside a screen.
+`src/prototype/navigation.tsx`. Never write a route string inside a screen. When the target comes in a later
+batch, use `<ScreenLink to="…" optional>`. When roles see their own copy of a screen, follow
+`guidelines/06-screen-flow-rules.md` section 12 (Role views).
 
 **Build screens from the components in `src/components/ui`**: shadcn/ui on Radix (`Button`, `Input`, `Select`,
 `Card`, `Dialog`, `AlertDialog`, `Sheet`, `DropdownMenu`, `Tabs`, `Table`, `Badge`, `Empty`, `toast()`…). They already
@@ -97,7 +99,10 @@ and the flow bar shows a "design issues" badge. Fix every design issue in the sc
 `src/prototype/designRules.ts` to make an issue disappear.
 
 **Prototype Home and the flow bar are tooling.** They use the LowCode Agency brand (`src/prototype/tooling.css`) at
-every fidelity. Do not restyle them, and never use `lca-*` classes in product screens.
+every fidelity. Do not restyle them, and never use `lca-*` classes in product screens. Their text follows
+`registry.language` (`src/prototype/strings.ts`). The flow bar sticks to the top of the window: full-height layouts
+and elements that stick to the page use `--prototype-bar-height` (`guidelines/02-lofi-prototype-rules.md`,
+"Prototype tooling").
 
 Never:
 
@@ -144,6 +149,8 @@ Before finishing any prototype task, open Prototype Home (`/`) and confirm:
   screen or variant has a rendered preview that shows its intended state
 - the browser console has no "Unknown screen ID" errors
 - `Open flow` opens the start screen, and direct screen links open exactly that screen
+- a long screen scrolls with the flow bar fixed on top, and no product header or sidebar hides under it; a
+  full-height screen does not scroll by the bar's height
 - previous/next in the flow bar still make sense
 - `npm run build` passes
 

@@ -18,6 +18,7 @@ import {
 } from './derive';
 import { registry } from './registry';
 import { ScreenPreview } from './ScreenPreview';
+import { toolingText } from './strings';
 import type { Flow, Screen, Status } from './types';
 import { registryIssues } from './validate';
 
@@ -36,8 +37,6 @@ const tagClass = 'inline-flex items-center rounded-sm px-1.5 py-0.5 text-[10px] 
 const ruleGrid = 'grid gap-px overflow-hidden rounded-lg p-px';
 const ruleCell = 'bg-lca-cream outline outline-1 outline-lca-rule';
 
-const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
-
 function Eyebrow({ children, tone = 'purple' }: { children: ReactNode; tone?: 'purple' | 'lime' }) {
   const color = tone === 'lime' ? 'text-lca-lime' : 'text-lca-purple-text';
   const line = tone === 'lime' ? 'bg-lca-lime' : 'bg-lca-purple';
@@ -51,7 +50,7 @@ function Eyebrow({ children, tone = 'purple' }: { children: ReactNode; tone?: 'p
 
 function StatusTag({ status }: { status?: Status }) {
   if (!status) return null;
-  return <span className={`${tagClass} bg-lca-purple-pale text-lca-purple-text`}>{status.replace(/-/g, ' ')}</span>;
+  return <span className={`${tagClass} bg-lca-purple-pale text-lca-purple-text`}>{toolingText().status[status]}</span>;
 }
 
 function StepNumber({ n }: { n?: number }) {
@@ -68,7 +67,7 @@ function OpenFlow({ flow, secondary = false }: { flow: Flow; secondary?: boolean
   if (!href) return null;
   return (
     <Link to={href} className={secondary ? secondaryButton : primaryButton}>
-      Open flow<span className="sr-only">: {flow.name}</span>
+      {toolingText().openFlow}<span className="sr-only">: {flow.name}</span>
     </Link>
   );
 }
@@ -77,15 +76,16 @@ function OpenFlow({ flow, secondary = false }: { flow: Flow; secondary?: boolean
 // Top bar, hero, footer
 
 function TopBar({ links }: { links: { href: string; label: string }[] }) {
+  const t = toolingText();
   return (
     <header className="sticky top-0 z-40 border-b border-lca-rule bg-lca-cream/90 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-[1200px] items-center justify-between gap-6 px-6 sm:px-12">
         <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-lca-ink">
           LOW / CODE
           <span aria-hidden className="h-4 w-px bg-lca-rule" />
-          <span className="font-medium text-lca-muted">Prototype home</span>
+          <span className="font-medium text-lca-muted">{t.prototypeHome}</span>
         </p>
-        <nav aria-label="Prototype home sections" className="hidden items-center gap-6 sm:flex">
+        <nav aria-label={t.homeSections} className="hidden items-center gap-6 sm:flex">
           {links.map((link) => (
             <a
               key={link.href}
@@ -102,16 +102,17 @@ function TopBar({ links }: { links: { href: string; label: string }[] }) {
 }
 
 function Hero({ designIssues }: { designIssues?: DesignIssue[] }) {
+  const t = toolingText();
   const total = counts();
   const stats = [
-    { value: total.userTypes, label: total.userTypes === 1 ? 'User type' : 'User types' },
-    { value: total.flows, label: total.flows === 1 ? 'Flow' : 'Flows' },
-    { value: total.screens, label: total.screens === 1 ? 'Screen' : 'Screens' },
-    { value: total.states, label: total.states === 1 ? 'Directly openable state' : 'Directly openable states' },
+    { value: total.userTypes, label: t.userTypes(total.userTypes) },
+    { value: total.flows, label: t.flows(total.flows) },
+    { value: total.screens, label: t.screens(total.screens) },
+    { value: total.states, label: t.states(total.states) },
   ];
   return (
     <section aria-labelledby="prototype-title" className="mb-16">
-      <Eyebrow>Prototype · {registry.fidelity.replace('lo-fi-plus', 'lo-fi+')}</Eyebrow>
+      <Eyebrow>{t.prototypeOf(t.fidelity[registry.fidelity])}</Eyebrow>
       <h1 id="prototype-title" className="text-[clamp(2.25rem,5vw,3.5rem)] leading-[1.08] font-bold tracking-[-0.03em] text-lca-ink">
         {registry.name}
       </h1>
@@ -130,19 +131,20 @@ function Hero({ designIssues }: { designIssues?: DesignIssue[] }) {
 }
 
 function ChecksSummary({ designIssues }: { designIssues?: DesignIssue[] }) {
+  const t = toolingText();
   const items: { label: string; ok: boolean; text: string; href?: string }[] = [
     {
-      label: 'Registry',
+      label: t.registry,
       ok: registryIssues.length === 0,
-      text: registryIssues.length === 0 ? 'no issues' : plural(registryIssues.length, 'issue'),
+      text: registryIssues.length === 0 ? t.noIssues : t.issues(registryIssues.length),
       href: '#registry-issues',
     },
   ];
   if (import.meta.env.DEV) {
     items.push({
-      label: 'Design check',
+      label: t.designCheck,
       ok: designIssues?.length === 0,
-      text: designIssues === undefined ? 'running…' : designIssues.length === 0 ? 'no issues' : plural(designIssues.length, 'issue'),
+      text: designIssues === undefined ? t.checking : designIssues.length === 0 ? t.noIssues : t.issues(designIssues.length),
       href: '#design-check',
     });
   }
@@ -164,7 +166,9 @@ function Footer() {
     <footer className="border-t border-lca-rule">
       <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-2 px-6 py-6 text-[11px] text-lca-muted sm:px-12">
         <span className="font-semibold tracking-[0.08em] text-lca-ink">LOW / CODE</span>
-        <span>Prototype home · {registry.name}</span>
+        <span>
+          {toolingText().prototypeHome} - {registry.name}
+        </span>
       </div>
     </footer>
   );
@@ -175,13 +179,14 @@ function Footer() {
 
 function RegistryIssues() {
   if (registryIssues.length === 0) return null;
+  const t = toolingText();
   return (
     <section id="registry-issues" aria-labelledby="registry-issues-title" className="mb-12 scroll-mt-20 rounded-lg bg-lca-ink p-6 text-lca-cream sm:p-8">
-      <Eyebrow tone="lime">Fix before the task is done</Eyebrow>
+      <Eyebrow tone="lime">{t.registryIssuesEyebrow}</Eyebrow>
       <h2 id="registry-issues-title" className="text-xl font-semibold">
-        Registry issues ({registryIssues.length})
+        {t.registryIssuesTitle(registryIssues.length)}
       </h2>
-      <p className="mt-1 text-sm text-lca-cream/70">Fix these in src/prototype/registry.ts.</p>
+      <p className="mt-1 text-sm text-lca-cream/70">{t.registryIssuesHint}</p>
       <ul className="mt-4 list-disc space-y-1.5 pl-5 text-sm text-lca-cream/90 [overflow-wrap:anywhere]">
         {registryIssues.map((issue) => (
           <li key={issue}>{issue}</li>
@@ -193,17 +198,18 @@ function RegistryIssues() {
 
 function DesignCheck({ issues }: { issues?: DesignIssue[] }) {
   if (!import.meta.env.DEV || !issues || issues.length === 0) return null;
+  const t = toolingText();
   const byFile = new Map<string, DesignIssue[]>();
   for (const issue of issues) byFile.set(issue.file, [...(byFile.get(issue.file) ?? []), issue]);
   return (
     <section id="design-check" aria-labelledby="design-check-title" className="mb-12 scroll-mt-20 rounded-lg bg-lca-white p-6 ring-1 ring-lca-rule sm:p-8">
-      <Eyebrow>Development only</Eyebrow>
+      <Eyebrow>{t.designCheckEyebrow}</Eyebrow>
       <h2 id="design-check-title" className="text-xl font-semibold text-lca-ink">
-        Design check ({issues.length})
+        {t.designCheckTitle(issues.length)}
       </h2>
       <p className="mt-1 max-w-3xl text-sm text-lca-body">
-        Classes in screens that break the design rules for <strong className="font-semibold">{registry.fidelity}</strong>, with
-        what to use instead. Fix them before calling a screen done. This list never appears in the deployed prototype.
+        {t.designCheckIntroBefore} <strong className="font-semibold">{t.fidelity[registry.fidelity]}</strong>
+        {t.designCheckIntroAfter}
       </p>
       <div className="mt-5 divide-y divide-lca-rule border-y border-lca-rule">
         {[...byFile].map(([file, fileIssues]) => (
@@ -211,7 +217,7 @@ function DesignCheck({ issues }: { issues?: DesignIssue[] }) {
             <summary className={`flex cursor-pointer list-none items-center justify-between gap-4 rounded-sm text-sm ${focusRing}`}>
               <code className="font-medium text-lca-ink [overflow-wrap:anywhere]">{file}</code>
               <span className="flex shrink-0 items-center gap-2 text-lca-muted">
-                {plural(fileIssues.length, 'issue')}
+                {t.issues(fileIssues.length)}
                 <span aria-hidden className="transition-transform duration-200 group-open:rotate-90">›</span>
               </span>
             </summary>
@@ -237,6 +243,7 @@ function DesignCheck({ issues }: { issues?: DesignIssue[] }) {
 function FlowCard({ flow }: { flow: Flow }) {
   const steps = flowScreens(flow);
   const shown = steps.slice(0, 6);
+  const t = toolingText();
   return (
     <li className={`flex flex-col gap-4 p-6 transition-colors duration-200 hover:bg-lca-white ${ruleCell}`}>
       <div>
@@ -253,12 +260,12 @@ function FlowCard({ flow }: { flow: Flow }) {
             <span className="truncate">{screen.name}</span>
           </li>
         ))}
-        {steps.length > shown.length && <li className="pl-8 text-sm text-lca-muted">+{steps.length - shown.length} more steps</li>}
+        {steps.length > shown.length && <li className="pl-8 text-sm text-lca-muted">{t.moreSteps(steps.length - shown.length)}</li>}
       </ol>
       <div className="mt-auto flex flex-wrap items-center gap-4 pt-2">
         <OpenFlow flow={flow} />
         <a href={`#flow-${flow.id}`} className={`text-sm ${textLink}`}>
-          See screens
+          {t.seeScreens}
         </a>
       </div>
     </li>
@@ -266,11 +273,12 @@ function FlowCard({ flow }: { flow: Flow }) {
 }
 
 function FlowsSection() {
+  const t = toolingText();
   return (
     <section id="flows" aria-labelledby="flows-title" className="mb-20 scroll-mt-20">
-      <Eyebrow>Prototype flows</Eyebrow>
+      <Eyebrow>{t.flowsEyebrow}</Eyebrow>
       <h2 id="flows-title" className="mb-8 text-[clamp(1.75rem,3.5vw,2.5rem)] leading-[1.15] font-bold tracking-[-0.02em] text-lca-ink">
-        User journeys
+        {t.flowsTitle}
       </h2>
       <div className="space-y-12">
         {userTypes().map((type) => (
@@ -316,6 +324,7 @@ function galleryGridClass(items: GalleryItem[]) {
 }
 
 function PreviewCard({ screen, step, flow }: GalleryItem & { flow?: Flow }) {
+  const t = toolingText();
   const state = stateLabel(screen);
   const href = hrefFor(screen, flow);
   const parent = screen.parentScreenId ? screenById(screen.parentScreenId) : undefined;
@@ -332,7 +341,7 @@ function PreviewCard({ screen, step, flow }: GalleryItem & { flow?: Flow }) {
           </h5>
           <div className="mt-1 flex flex-wrap gap-1.5">
             {state && <span className={`${tagClass} bg-lca-ink text-lca-cream`}>{state}</span>}
-            {screen.shared && <span className={`${tagClass} bg-lca-gray text-lca-body`}>shared</span>}
+            {screen.shared && <span className={`${tagClass} bg-lca-gray text-lca-body`}>{t.shared}</span>}
             {showStatus && <StatusTag status={screen.status} />}
           </div>
         </div>
@@ -346,12 +355,12 @@ function PreviewCard({ screen, step, flow }: GalleryItem & { flow?: Flow }) {
       >
         <ScreenPreview screen={screen} />
         <span className="pointer-events-none absolute right-2 bottom-2 rounded-sm bg-lca-ink px-2 py-1 text-[11px] font-medium text-lca-cream opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-          Open screen ↗
+          {t.openScreen} ↗
         </span>
       </Link>
       <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
         <Link to={href} className={`text-sm ${textLink}`}>
-          Open screen<span className="sr-only">: {screenLabel(screen)}</span>
+          {t.openScreen}<span className="sr-only">: {screenLabel(screen)}</span>
         </Link>
         <code className="text-[11px] text-lca-muted [overflow-wrap:anywhere]">{screen.route}</code>
       </div>
@@ -372,11 +381,12 @@ function Gallery({ items, flow }: { items: GalleryItem[]; flow?: Flow }) {
 
 function ScreensSection() {
   const standalone = standaloneGalleryItems();
+  const t = toolingText();
   return (
     <section id="screens" aria-labelledby="screens-title" className="mb-20 scroll-mt-20">
-      <Eyebrow>All prototype screens</Eyebrow>
+      <Eyebrow>{t.screensEyebrow}</Eyebrow>
       <h2 id="screens-title" className="mb-8 text-[clamp(1.75rem,3.5vw,2.5rem)] leading-[1.15] font-bold tracking-[-0.02em] text-lca-ink">
-        Every screen and state
+        {t.screensTitle}
       </h2>
       <div className="space-y-16">
         {userTypes().map((type) => (
@@ -399,8 +409,8 @@ function ScreensSection() {
         {standalone.length > 0 && (
           <div>
             <div className="mb-6 border-b border-lca-rule pb-4">
-              <h3 className="text-xl font-semibold text-lca-ink">Standalone screens</h3>
-              <p className="mt-1 text-sm text-lca-body">Utility screens that are not part of a user journey.</p>
+              <h3 className="text-xl font-semibold text-lca-ink">{t.standaloneTitle}</h3>
+              <p className="mt-1 text-sm text-lca-body">{t.standaloneDescription}</p>
             </div>
             <Gallery items={standalone} />
           </div>
@@ -416,12 +426,13 @@ function ScreensSection() {
 function ShortcutsSection() {
   const devShortcuts = shortcuts();
   if (devShortcuts.length === 0) return null;
+  const t = toolingText();
   const groups = [...new Set(devShortcuts.map((s) => s.group ?? 'General'))];
   return (
     <section id="shortcuts" aria-labelledby="shortcuts-title" className="mb-20 scroll-mt-20">
-      <Eyebrow>Developer shortcuts</Eyebrow>
+      <Eyebrow>{t.shortcutsEyebrow}</Eyebrow>
       <h2 id="shortcuts-title" className="mb-8 text-[clamp(1.75rem,3.5vw,2.5rem)] leading-[1.15] font-bold tracking-[-0.02em] text-lca-ink">
-        Jump to a state
+        {t.shortcutsTitle}
       </h2>
       <div className="space-y-8">
         {groups.map((group) => (
@@ -454,16 +465,13 @@ function ShortcutsSection() {
 // Empty state and page
 
 function EmptyState() {
-  const steps = [
-    'Import this repository into Google AI Studio (Build). It reads the guidelines and starts the intake.',
-    'Upload a PRD or answer the intake questions.',
-    'Confirm the brief and say "go". Flows and screens appear here as they are built.',
-  ];
+  const t = toolingText();
+  const steps = t.emptySteps;
   return (
     <section aria-labelledby="empty-title" className="rounded-lg bg-lca-white p-8 ring-1 ring-lca-rule">
-      <Eyebrow>Getting started</Eyebrow>
+      <Eyebrow>{t.emptyEyebrow}</Eyebrow>
       <h2 id="empty-title" className="text-xl font-semibold text-lca-ink">
-        Nothing is built yet
+        {t.emptyTitle}
       </h2>
       <ol className="mt-5 space-y-3">
         {steps.map((step, i) => (
@@ -473,7 +481,7 @@ function EmptyState() {
           </li>
         ))}
       </ol>
-      <p className="mt-5 text-[13px] text-lca-muted">This page is generated from src/prototype/registry.ts.</p>
+      <p className="mt-5 text-[13px] text-lca-muted">{t.emptyFootnote}</p>
     </section>
   );
 }
@@ -488,6 +496,7 @@ function useScrollToHash(ready: boolean) {
 }
 
 export function PrototypeHome() {
+  const t = toolingText();
   const designIssues = useDesignIssues();
   const isEmpty = registry.flows.length === 0 && registry.screens.length === 0;
   useScrollToHash(designIssues !== undefined);
@@ -495,9 +504,9 @@ export function PrototypeHome() {
   const links = isEmpty
     ? []
     : [
-        { href: '#flows', label: 'Flows' },
-        { href: '#screens', label: 'Screens' },
-        ...(shortcuts().length > 0 ? [{ href: '#shortcuts', label: 'Shortcuts' }] : []),
+        { href: '#flows', label: t.navFlows },
+        { href: '#screens', label: t.navScreens },
+        ...(shortcuts().length > 0 ? [{ href: '#shortcuts', label: t.navShortcuts }] : []),
       ];
 
   return (

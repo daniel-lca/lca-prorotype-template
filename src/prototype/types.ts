@@ -7,6 +7,9 @@ export type Status = 'planned' | 'draft' | 'in-progress' | 'ready-for-review' | 
 /** project/BRIEF.md Fidelity. Decides which design checks run (see src/prototype/designCheck.ts). */
 export type Fidelity = 'lo-fi' | 'lo-fi-plus' | 'mid-fi';
 
+/** project/BRIEF.md UI language. Sets the language of the prototype tooling (src/prototype/strings.ts). */
+export type Language = 'en' | 'es';
+
 /** Size the screen is designed for. Gallery previews render at this size and scale down. */
 export interface Viewport {
   width: number;
@@ -70,6 +73,8 @@ export interface Registry {
   name: string;
   /** Fidelity from the brief. Set during project setup. */
   fidelity: Fidelity;
+  /** UI language from the brief. Prototype Home and the flow bar use it too. Defaults to 'en'. */
+  language?: Language;
   /** One-sentence pitch from the brief, shown under the name on Prototype Home. */
   description?: string;
   /**

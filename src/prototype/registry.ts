@@ -28,6 +28,7 @@ import type { Registry } from './types';
 export const registry: Registry = {
   name: 'Untitled prototype',
   fidelity: 'lo-fi', // set from project/BRIEF.md during project setup: 'lo-fi' | 'lo-fi-plus' | 'mid-fi'
+  language: 'en', // UI language from project/BRIEF.md: 'en' | 'es'. Prototype Home and the flow bar follow it.
   description: '', // the one-sentence pitch from project/BRIEF.md, set during project setup
   userTypes: [],
   flows: [],

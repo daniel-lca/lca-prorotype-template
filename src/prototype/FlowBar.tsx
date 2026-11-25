@@ -3,12 +3,14 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useDesignIssues } from './designCheck';
 import { contextFlow, FLOW_PARAM, hrefFor, screenLabel, stepInfo } from './derive';
 import { registry } from './registry';
+import { SEPARATOR, toolingText } from './strings';
 import type { Screen } from './types';
 import { registryIssues } from './validate';
 
 // Prototype tooling bar above every registered screen: where am I, previous/next step, back to Prototype Home,
 // and issue badges. It uses the LowCode Agency brand at every fidelity (src/prototype/tooling.css).
-// It is not sticky: it scrolls away with the page, so it never covers a product's own sticky header.
+// It sticks to the top of the window. Product elements that stick to the page use
+// top-[var(--prototype-bar-height,0px)], not top-0, so the bar never covers them (02, Prototype tooling).
 // It publishes its height as --prototype-bar-height for full-height app shells.
 
 const STORAGE_KEY = 'prototype-flowbar-hidden';
@@ -30,9 +32,8 @@ function setBarHeight(px: number) {
   document.documentElement.style.setProperty(BAR_HEIGHT_VAR, `${px}px`);
 }
 
-const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
-
 export function FlowBar({ screen }: { screen: Screen }) {
+  const t = toolingText();
   const [hidden, setHidden] = useState(readHidden);
   const [params] = useSearchParams();
   const barRef = useRef<HTMLElement>(null);
@@ -74,7 +75,8 @@ export function FlowBar({ screen }: { screen: Screen }) {
         onClick={toggle}
         className="fixed bottom-3 left-3 z-50 rounded-md bg-lca-ink px-3 py-2 font-lca text-xs font-medium text-lca-cream opacity-70 shadow-[0_1px_12px_rgba(0,0,0,0.06)] transition-opacity hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lca-purple print:hidden"
       >
-        Show prototype bar{issueCount > 0 && ` · ${plural(issueCount, 'issue')}`}
+        {t.showBar}
+        {issueCount > 0 && `${SEPARATOR}${t.issues(issueCount)}`}
       </button>
     );
   }
@@ -82,29 +84,29 @@ export function FlowBar({ screen }: { screen: Screen }) {
   return (
     <nav
       ref={barRef}
-      aria-label="Prototype navigation"
-      className="relative z-50 flex flex-wrap items-center gap-x-4 gap-y-1 bg-lca-ink px-3 py-1.5 font-lca text-xs text-lca-cream antialiased print:hidden"
+      aria-label={t.flowBarLabel}
+      className="sticky top-0 z-50 flex flex-wrap items-center gap-x-4 gap-y-1 bg-lca-ink px-3 py-1.5 font-lca text-xs text-lca-cream antialiased print:hidden"
     >
       <Link to="/" className={`${linkClass} flex items-center gap-2`}>
         <span className="text-[11px] font-semibold tracking-[0.08em] text-lca-cream">LOW / CODE</span>
         <span aria-hidden className="text-lca-cream/30">|</span>
-        <span>Prototype home</span>
+        <span>{t.prototypeHome}</span>
       </Link>
       {registryIssues.length > 0 && (
         <Link to="/#registry-issues" className={`${badgeClass} bg-lca-lime`}>
-          {plural(registryIssues.length, 'registry issue')}
+          {t.registryIssueBadge(registryIssues.length)}
         </Link>
       )}
       {designCount > 0 && (
         <Link to="/#design-check" className={`${badgeClass} bg-lca-purple-light`}>
-          {plural(designCount, 'design issue')}
+          {t.designIssueBadge(designCount)}
         </Link>
       )}
       <span className="text-lca-cream/60">
-        {[userType?.name, info?.flow.name ?? (screen.standalone ? 'Standalone' : undefined)].filter(Boolean).join(' · ')}
+        {[userType?.name, info?.flow.name ?? (screen.standalone ? t.standalone : undefined)].filter(Boolean).join(SEPARATOR)}
       </span>
       <span aria-current="page" className="font-medium text-lca-cream">
-        {info && info.step > 0 && `Step ${info.step} of ${info.total} · `}
+        {info && info.step > 0 && `${t.step(info.step, info.total)}${SEPARATOR}`}
         {screenLabel(screen)}
       </span>
       <span className="ml-auto flex items-center gap-2">
@@ -119,7 +121,7 @@ export function FlowBar({ screen }: { screen: Screen }) {
           </Link>
         )}
         <button type="button" onClick={toggle} className={`${linkClass} text-lca-cream/50`}>
-          Hide
+          {t.hide}
         </button>
       </span>
     </nav>

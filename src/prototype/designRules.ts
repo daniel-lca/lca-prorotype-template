@@ -47,7 +47,10 @@ const TOKEN_RULES: TokenRule[] = [
   { test: /^uppercase$/, fix: 'sentence case text, no uppercase labels (text.md)' },
   { test: /^tracking-(wide|wider|widest)$/, fix: 'default letter spacing (text.md)' },
   { test: /^text-\[\d+(\.\d+)?(px|rem)\]$/, fix: 'the type scale: text-xs / text-sm, or text-small / text-body in Mid-fi (text.md)' },
-  { test: /^(min-)?h-screen$/, fix: 'h-[calc(100dvh-var(--prototype-bar-height,0px))] (02, Prototype tooling)' },
+  {
+    test: /^(min-|max-)?h-(screen|dvh|svh|lvh|\[100(vh|dvh|svh|lvh)\])$/,
+    fix: 'h-[calc(100dvh-var(--prototype-bar-height,0px))] or min-h-[…] (02, Prototype tooling)',
+  },
   { test: /^rounded-3xl$/, fix: 'rounded-md (controls), rounded-lg (cards), rounded-xl (dialogs) (radius.md)' },
   { test: /^rounded-2xl$/, fix: 'rounded-lg (cards) or rounded-xl (dialogs); 2xl is for marketing pages only (radius.md)', only: ['mid-fi'] },
   { test: /^shadow-(lg|xl|2xl)$/, fix: 'shadow-xs or shadow-sm, or a border (color.md)' },

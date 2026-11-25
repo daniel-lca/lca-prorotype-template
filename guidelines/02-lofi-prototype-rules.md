@@ -57,6 +57,9 @@ rules in text).
   `goTo('customer-booking-pay-failed')`.
 - Forms: fields are interactive, submit goes to the next step. No real validation beyond "required".
 - Elements outside the core flows can be inert; give them `title="Not in prototype"`.
+- **Building in batches:** if the target screen comes in a later batch, write `<ScreenLink to="…" optional>`. It
+  stays inert, with no dashed outline and no console error, until the screen is registered. Then it navigates.
+  Remove `optional` when the target exists, so a renamed ID shows up as an error again.
 - No backend, no auth provider, no database. Fake login = a button that navigates.
 - **Do not call the Gemini API or any external API** unless the brief explicitly asks for an AI feature.
 
@@ -82,10 +85,23 @@ brand (`src/prototype/tooling.css`) at every fidelity. Do not restyle them to ma
 and never use their `lca-*` classes in product screens. Reviewers can hide the flow bar with its **Hide** button
 during a demo.
 
-The flow bar sits above every screen and scrolls away with the page, so product headers can use `sticky top-0`.
-It sets the CSS variable `--prototype-bar-height` (`0px` when hidden). A full-height app shell uses
-`h-[calc(100dvh-var(--prototype-bar-height,0px))]` (or `min-h-[…]`), not `h-screen`, so the page does not scroll by
-the bar's height.
+The flow bar sticks to the top of the window on every screen, so reviewers can always go back or step through
+the flow. It sets the CSS variable `--prototype-bar-height` (`0px` when hidden). Write every layout against it:
+
+- **Full-height shells** (sidebar layouts, auth pages, split views) use
+  `h-[calc(100dvh-var(--prototype-bar-height,0px))]` or `min-h-[…]`. Never use `h-screen`, `h-dvh`, `min-h-dvh`,
+  `h-svh`, or `h-[100vh]`: the page then scrolls by the bar's height. The design check flags them.
+- **Elements that stick to the page** (a sidebar, a product header, a toolbar) use
+  `sticky top-[var(--prototype-bar-height,0px)]`, not `sticky top-0`, or the bar covers them. An element that sticks
+  inside its own scroll container (a table header in a scroll area) keeps `top-0`.
+- **Boards that must fit the window** (Kanban columns, split panes) scroll inside each column. Give the column
+  `max-h-[calc(100dvh-var(--prototype-bar-height,0px)-<space above the board>)]` and `overflow-y-auto`. The page
+  itself does not scroll.
+- When **Hide** removes the bar, the variable is `0px` and the product takes the whole window. Check a long screen
+  both ways.
+
+The tooling text (Prototype Home, the flow bar, the "not found" page, tab titles) follows `registry.language`. Do
+not hardcode tooling text in another language; add or change it in `src/prototype/strings.ts`.
 
 ## Design check
 

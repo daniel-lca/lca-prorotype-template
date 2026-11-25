@@ -109,8 +109,10 @@ Do this once, after the user says "go" and before you build the first screen.
 The template files describe the template, not the product. The project repository must describe this prototype.
 
 1. Replace `README.md` completely with the structure below. Do not keep any text from the template README.
-2. In `src/prototype/registry.ts`, set `name` to the product name, `description` to the one-sentence pitch, and
-   `fidelity` to `'lo-fi'`, `'lo-fi-plus'`, or `'mid-fi'` from the brief.
+2. In `src/prototype/registry.ts`, set `name` to the product name, `description` to the one-sentence pitch,
+   `fidelity` to `'lo-fi'`, `'lo-fi-plus'`, or `'mid-fi'` from the brief, and `language` to the UI language
+   (`'en'` or `'es'`). Prototype Home, the flow bar, and the "not found" page use this language too. For another
+   language, add it to `src/prototype/strings.ts` first.
 3. In `metadata.json`, set `name` to "<Product name> prototype".
    Set `description` to the pitch, followed by "Read AGENTS.md before making changes."
 4. In `index.html`, set `<title>` to "<Product name> prototype", and set `<html lang>` to the UI language code

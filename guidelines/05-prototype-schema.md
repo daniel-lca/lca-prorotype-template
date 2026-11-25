@@ -27,12 +27,14 @@ The registry is already implemented. Use it; do not create a second one.
 Template-specific details:
 
 - The registry also holds `fidelity` (`'lo-fi'`, `'lo-fi-plus'`, or `'mid-fi'`, which decides the design check
-  rules) and `description` (the one-sentence pitch shown on Prototype Home). Both are set during project setup.
+  rules), `description` (the one-sentence pitch shown on Prototype Home), and `language` (`'en'` or `'es'`, the
+  language of the tooling text in `src/prototype/strings.ts`; default `'en'`). All three are set during project
+  setup.
 - A screen entry also holds its React `component`, so routing comes from the registry too.
 - Standalone screens set `standalone: true` and omit `flowId`.
 - Variants set `parentScreenId` + `variant`, share the parent's `flowId`, and are **not** listed in `screenIds`.
   A variant's `name` is the parent's name, and `variant` is the state in a few words (`'no-colleagues'`,
-  `'payment-failed'`). Prototype Home and the flow bar show it as "Choose colleague · no colleagues".
+  `'payment-failed'`). Prototype Home and the flow bar show it as "Choose colleague - no colleagues".
 - Shared screens set `shared: true`; other flows may then list them in their `screenIds`.
 - `previewViewport` (`{ width, height }`) sets the gallery preview size for the whole registry (default
   1440 × 900) or for one screen.
